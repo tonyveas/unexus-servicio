@@ -1,4 +1,4 @@
-package ec.unexus.pruebaserviciotonyveas;
+package ec.unexus.prueba.servicio.tony.veas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
