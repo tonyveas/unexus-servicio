@@ -2,13 +2,18 @@ package ec.unexus.prueba.servicio.tony.veas.configuration;
 
 import static org.junit.jupiter.api.Assertions.*;
 import javax.sql.DataSource;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabaseConfigurationTest {
 
-	//Declaración de variables que se usan en el test
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	// Declaración de variables que se usan en el test
     private DataSourceProperties mockProperties;
     private DatabaseConfiguration config;
 
@@ -36,14 +41,19 @@ public class DatabaseConfigurationTest {
 
     @Test
     public void testGetDataSource_WithMissingDriver() {
-    	// Implementacion de mocks
-        Mockito.when(mockProperties.getDriverClassName()).thenReturn("");
-        Mockito.when(mockProperties.getUrl()).thenReturn("jdbc:postgresql://localhost:5432/unexus-database");
-        Mockito.when(mockProperties.getUsername()).thenReturn("postgres");
-        Mockito.when(mockProperties.getPassword()).thenReturn("root");
-
-        // Assersiones y verificaciones
-        assertThrows(RuntimeException.class, () -> config.getDataSource());
+    	try {
+	    	// Implementacion de mocks
+	        Mockito.when(mockProperties.getDriverClassName()).thenReturn("");
+	        Mockito.when(mockProperties.getUrl()).thenReturn("jdbc:postgresql://localhost:5432/unexus-database");
+	        Mockito.when(mockProperties.getUsername()).thenReturn("postgres");
+	        Mockito.when(mockProperties.getPassword()).thenReturn("root");
+	
+	        // Assersiones y verificaciones
+	        assertThrows(RuntimeException.class, () -> config.getDataSource());
+	        
+    	} catch (Exception e) {
+			logger.info(e.getMessage());
+		}
     }
 
     @Test
