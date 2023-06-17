@@ -1,11 +1,16 @@
 package ec.unexus.prueba.servicio.tony.veas.configuration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import javax.sql.DataSource;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +18,13 @@ public class DatabaseConfigurationTest {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// Declaración de variables que se usan en el test
+	// Declaramos el mock de DataSourceProperties
+    @Mock
     private DataSourceProperties mockProperties;
+
+    // Usamos @InjectMocks para que Mockito cree una instancia de DatabaseConfiguration
+    // e inyecte el mock de DataSourceProperties en él.
+    @InjectMocks
     private DatabaseConfiguration config;
 
     // Inicialización de variables que se usan en las pruebas
@@ -23,7 +33,7 @@ public class DatabaseConfigurationTest {
         mockProperties = Mockito.mock(DataSourceProperties.class);
         config = new DatabaseConfiguration(mockProperties);
     }
-
+    
     @Test
     public void testGetDataSource() {
     	// Implementacion de mocks

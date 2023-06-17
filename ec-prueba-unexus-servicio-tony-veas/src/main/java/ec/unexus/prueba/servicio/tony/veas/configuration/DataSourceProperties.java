@@ -46,7 +46,7 @@ public class DataSourceProperties {
 	
 	@Override
 	public String toString() {
-		return "DataSourceProperties [url=" + url + ", username=" + username + ", password=" + password + ", driverClassname=" + driverClassName + "]";
+		return "DataSourceProperties [url=" + url + ", username=" + username + ", driverClassname=" + driverClassName + "]";
 	}
 
 }
