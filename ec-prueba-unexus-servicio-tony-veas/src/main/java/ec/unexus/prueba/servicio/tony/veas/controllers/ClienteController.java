@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import ec.unexus.prueba.servicio.tony.veas.dto.ClienteDTO;
 import ec.unexus.prueba.servicio.tony.veas.entities.Cliente;
 import ec.unexus.prueba.servicio.tony.veas.services.ClienteService;
+import jakarta.validation.Valid;
 
 @RestController
 public class ClienteController {
@@ -35,7 +36,7 @@ public class ClienteController {
 	}
 
 	@PostMapping(path = "/clientes")
-	public ResponseEntity<Cliente> crearCliente(@RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<Cliente> crearCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
 		try {
 			Cliente nuevoCliente = clienteService.createCliente(clienteDTO);
 			return new ResponseEntity<>(nuevoCliente, HttpStatus.CREATED);
@@ -45,7 +46,7 @@ public class ClienteController {
 	}
 
 	@PutMapping(path = "/clientes/{id}")
-	public ResponseEntity<ClienteDTO> editarCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> editarCliente(@PathVariable Integer id, @Valid @RequestBody ClienteDTO clienteDTO) {
 	    try {
 	        return new ResponseEntity<>(clienteService.update(id, clienteDTO), HttpStatus.OK);
 	    } catch (IllegalArgumentException e) {
@@ -58,5 +59,5 @@ public class ClienteController {
 		clienteService.eliminarCliente(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
 }
