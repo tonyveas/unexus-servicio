@@ -1,5 +1,6 @@
 package ec.unexus.prueba.servicio.tony.veas.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,7 +32,7 @@ public class Cliente {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Direccion> direccionesSucursales;
+	private List<Direccion> direccionesSucursales = new ArrayList<>();
 
 	public Integer getId() {
 		return id;

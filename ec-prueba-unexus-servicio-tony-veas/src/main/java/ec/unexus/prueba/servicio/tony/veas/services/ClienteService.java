@@ -65,9 +65,12 @@ public class ClienteService {
 		nuevoCliente.setCorreo(clienteDTO.getEmail());
 		nuevoCliente.setNumeroCelular(clienteDTO.getCellphone());
 
-		if (clienteDTO.getMainProvince() != null && !clienteDTO.getMainProvince().isEmpty()
-				&& clienteDTO.getMainCity() != null && !clienteDTO.getMainCity().isEmpty()
-				&& clienteDTO.getMainAddress() != null && !clienteDTO.getMainAddress().isEmpty()) {
+		if (clienteDTO.getMainProvince() != null    & 
+		    clienteDTO.getMainCity() != null        & 
+	        clienteDTO.getMainAddress() != null     & 
+		    !clienteDTO.getMainProvince().isEmpty() &
+		    !clienteDTO.getMainCity().isEmpty()     & 
+		    !clienteDTO.getMainAddress().isEmpty()) {
 
 			Direccion direccion = new Direccion();
 			direccion.setProvincia(clienteDTO.getMainProvince());
@@ -75,32 +78,38 @@ public class ClienteService {
 			direccion.setDireccion(clienteDTO.getMainAddress());
 
 			if (clienteDTO.getTypeAddress() == null) {
-				direccion.setTipoDireccion(TipoDireccion.MATRIZ);
-				nuevoCliente.setDireccionMatriz(direccion);
-			} else {
-				TipoDireccion tipoDireccion = TipoDireccion.valueOf(clienteDTO.getTypeAddress().toUpperCase());
+		        direccion.setTipoDireccion(TipoDireccion.MATRIZ);
+		        nuevoCliente.setDireccionMatriz(direccion);
+		    } else {
+		        // Verifica que el tipo de dirección proporcionado es un valor válido de TipoDireccion
+		        if (!isValidTipoDireccion(clienteDTO.getTypeAddress().toUpperCase())) {
+		            throw new IllegalArgumentException("TipoDireccion no es válido. Debe ser 'MATRIZ' o 'SUCURSAL'");
+		        }
 
-				if (tipoDireccion != TipoDireccion.MATRIZ && tipoDireccion != TipoDireccion.SUCURSAL) {
-					throw new IllegalArgumentException("TipoDireccion no es válido. Debe ser 'MATRIZ' o 'SUCURSAL'");
-				}
+		        TipoDireccion tipoDireccion = TipoDireccion.valueOf(clienteDTO.getTypeAddress().toUpperCase());
 
-				direccion.setTipoDireccion(tipoDireccion);
+		        direccion.setTipoDireccion(tipoDireccion);
 
-				if (nuevoCliente.getDireccionesSucursales() == null) {
-					nuevoCliente.setDireccionesSucursales(new ArrayList<>());
-				}
-
-				if (tipoDireccion == TipoDireccion.MATRIZ) {
-					nuevoCliente.setDireccionMatriz(direccion);
-				} else {
-					nuevoCliente.getDireccionesSucursales().add(direccion); 
-				}
-			}
+		        if (tipoDireccion == TipoDireccion.MATRIZ) {
+		            nuevoCliente.setDireccionMatriz(direccion);
+		        } else {
+		            nuevoCliente.getDireccionesSucursales().add(direccion);
+		        }
+		    }
 
 			direccion.setCliente(nuevoCliente);
 		}
 
 		return save(nuevoCliente);
+	}
+	
+	private boolean isValidTipoDireccion(String tipoDireccion) {
+	    for (TipoDireccion td : TipoDireccion.values()) {
+	        if (td.name().equals(tipoDireccion)) {
+	            return true;
+	        }
+	    }
+	    return false;
 	}
 	
 	@Transactional
