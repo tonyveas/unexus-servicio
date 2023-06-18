@@ -24,19 +24,14 @@ public class Cliente {
 	private String nombres;
 	private String correo;
 	private String numeroCelular;
-	
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "direccion_matriz_id", referencedColumnName = "id")	
+	@JoinColumn(name = "direccion_matriz_id", referencedColumnName = "id")
 	private Direccion direccionMatriz;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Direccion> direccionesSucursales;
-
-	// private String provinciaPrincipal;
-	// private String ciudadPrincipal;
-	// private String direcionPrincipal;
 
 	public Integer getId() {
 		return id;

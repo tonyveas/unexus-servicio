@@ -1,5 +1,6 @@
 package ec.unexus.prueba.servicio.tony.veas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import ec.unexus.prueba.servicio.tony.veas.TipoDireccion;
 import ec.unexus.prueba.servicio.tony.veas.dto.ClienteDTO;
 import ec.unexus.prueba.servicio.tony.veas.entities.Cliente;
 import ec.unexus.prueba.servicio.tony.veas.entities.Direccion;
@@ -23,10 +25,6 @@ public class ClienteService {
 		this.clienteRepository = clienteRepository;
 	}
 	
-	public List<Cliente> getClientes() {
-		return clienteRepository.findAll();
-	}
-	
 	public List<ClienteDTO> buscarClientes(String search) {
         List<Cliente> clientes = clienteRepository.findByNumeroIdentificacionContainingOrNombresContaining(search, search);
         return clientes.stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -40,12 +38,11 @@ public class ClienteService {
 	    clienteDTO.setNames(cliente.getNombres());
 	    clienteDTO.setEmail(cliente.getCorreo());
 	    clienteDTO.setCellphone(cliente.getNumeroCelular());
-	    // Usamos la dirección de la matriz para llenar estos campos
 	    Direccion direccionMatriz = cliente.getDireccionMatriz();
 	    clienteDTO.setMainProvince(direccionMatriz.getProvincia());
 	    clienteDTO.setMainCity(direccionMatriz.getCiudad());
 	    clienteDTO.setMainAddress(direccionMatriz.getDireccion());
-
+	    clienteDTO.setTypeAddress(direccionMatriz.getTipoDireccion().toString());
 	    return clienteDTO;
 	}
 	
@@ -53,18 +50,76 @@ public class ClienteService {
 	    return clienteRepository.findByNumeroIdentificacion(numeroIdentificacion);
 	}
 	
+	
+	@Transactional
+	public Cliente createCliente(ClienteDTO clienteDTO) {
+		Cliente existente = findByNumeroIdentificacion(clienteDTO.getIdentificationNumber());
+		if (existente != null) {
+			throw new IllegalArgumentException("Ya existe un cliente con el número de identificación proporcionado");
+		}
+
+		Cliente nuevoCliente = new Cliente();
+		nuevoCliente.setTipoIdentificacion(clienteDTO.getIdentificationType());
+		nuevoCliente.setNumeroIdentificacion(clienteDTO.getIdentificationNumber());
+		nuevoCliente.setNombres(clienteDTO.getNames());
+		nuevoCliente.setCorreo(clienteDTO.getEmail());
+		nuevoCliente.setNumeroCelular(clienteDTO.getCellphone());
+
+		if (clienteDTO.getMainProvince() != null && !clienteDTO.getMainProvince().isEmpty()
+				&& clienteDTO.getMainCity() != null && !clienteDTO.getMainCity().isEmpty()
+				&& clienteDTO.getMainAddress() != null && !clienteDTO.getMainAddress().isEmpty()) {
+
+			Direccion direccion = new Direccion();
+			direccion.setProvincia(clienteDTO.getMainProvince());
+			direccion.setCiudad(clienteDTO.getMainCity());
+			direccion.setDireccion(clienteDTO.getMainAddress());
+
+			if (clienteDTO.getTypeAddress() == null) {
+				direccion.setTipoDireccion(TipoDireccion.MATRIZ);
+				nuevoCliente.setDireccionMatriz(direccion);
+			} else {
+				TipoDireccion tipoDireccion = TipoDireccion.valueOf(clienteDTO.getTypeAddress().toUpperCase());
+
+				if (tipoDireccion != TipoDireccion.MATRIZ && tipoDireccion != TipoDireccion.SUCURSAL) {
+					throw new IllegalArgumentException("TipoDireccion no es válido. Debe ser 'MATRIZ' o 'SUCURSAL'");
+				}
+
+				direccion.setTipoDireccion(tipoDireccion);
+
+				if (nuevoCliente.getDireccionesSucursales() == null) {
+					nuevoCliente.setDireccionesSucursales(new ArrayList<>());
+				}
+
+				if (tipoDireccion == TipoDireccion.MATRIZ) {
+					nuevoCliente.setDireccionMatriz(direccion);
+				} else {
+					nuevoCliente.getDireccionesSucursales().add(direccion); 
+				}
+			}
+
+			direccion.setCliente(nuevoCliente);
+		}
+
+		return save(nuevoCliente);
+	}
+	
 	@Transactional
 	public Cliente save(Cliente cliente) {
 	    return clienteRepository.save(cliente);
 	}
 	
-	public ClienteDTO update(ClienteDTO clienteDTO) {
-	    Cliente clienteExistente = clienteRepository.findById(clienteDTO.getId()).orElseThrow(() -> 
+	public ClienteDTO update(Integer id, ClienteDTO clienteDTO) {
+	    Cliente clienteExistente = clienteRepository.findById(id).orElseThrow(() -> 
 	        new ResponseStatusException(
 	                HttpStatus.NOT_FOUND, "No se encontró un cliente con el ID proporcionado"
 	        )
 	    );
-	    
+
+	    Cliente clienteConNuevoNumero = clienteRepository.findByNumeroIdentificacion(clienteDTO.getIdentificationNumber());
+	    if (clienteConNuevoNumero != null && !clienteConNuevoNumero.getId().equals(id)) {
+	        throw new IllegalArgumentException("Ya existe un cliente con el número de identificación proporcionado");
+	    }
+
 	    clienteExistente.setTipoIdentificacion(clienteDTO.getIdentificationType());
 	    clienteExistente.setNumeroIdentificacion(clienteDTO.getIdentificationNumber());
 	    clienteExistente.setNombres(clienteDTO.getNames());
@@ -84,7 +139,7 @@ public class ClienteService {
 	
 	@Transactional
 	public void eliminarCliente(Integer id) {
-	    Cliente clienteParaEliminar = clienteRepository.findById(id).orElseThrow(() -> 
+	    clienteRepository.findById(id).orElseThrow(() -> 
 	        new ResponseStatusException(
 	                HttpStatus.NOT_FOUND, "No se encontró un cliente con el ID proporcionado"
 	        )

@@ -12,8 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
-
-
 @Entity
 public class Direccion {
 
@@ -23,16 +21,14 @@ public class Direccion {
 	private String provincia;
 	private String ciudad;
 	private String direccion;
-	
-	 @Enumerated(EnumType.STRING)
-	 private TipoDireccion tipoDireccion;
 
-	// private boolean esMatriz;
+	@Enumerated(EnumType.STRING)
+	private TipoDireccion tipoDireccion;
 
 	@JsonIgnore
 	@ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 
 	public Integer getId() {
 		return id;
@@ -66,14 +62,6 @@ public class Direccion {
 		this.direccion = direccion;
 	}
 
-	/* public boolean esMatriz() {
-		return esMatriz;
-	}
-
-	public void setEsMatriz(boolean esMatriz) {
-		this.esMatriz = esMatriz;
-	} */
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -83,17 +71,17 @@ public class Direccion {
 	}
 
 	public TipoDireccion getTipoDireccion() {
-        return tipoDireccion;
-    }
+		return tipoDireccion;
+	}
 
-    public void setTipoDireccion(TipoDireccion tipoDireccion) {
-        this.tipoDireccion = tipoDireccion;
-    }
-	
+	public void setTipoDireccion(TipoDireccion tipoDireccion) {
+		this.tipoDireccion = tipoDireccion;
+	}
+
 	@Override
 	public String toString() {
 		return "Direccion [id=" + id + ", provincia=" + provincia + ", ciudad=" + ciudad + ", direccion=" + direccion
 				+ ", cliente=" + cliente + "]";
 	}
-	
+
 }
