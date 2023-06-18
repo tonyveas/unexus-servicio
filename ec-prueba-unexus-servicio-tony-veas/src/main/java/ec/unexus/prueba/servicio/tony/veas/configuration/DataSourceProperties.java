@@ -39,14 +39,15 @@ public class DataSourceProperties {
 	public String getDriverClassName() {
 		return driverClassName;
 	}
-	
+
 	public void setDriverClassName(String driverClassName) {
 		this.driverClassName = driverClassName;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "DataSourceProperties [url=" + url + ", username=" + username + ", driverClassname=" + driverClassName + "]";
+		return "DataSourceProperties [url=" + url + ", username=" + username + ", driverClassname=" + driverClassName
+				+ "]";
 	}
 
 }

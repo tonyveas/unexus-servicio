@@ -17,21 +17,21 @@ public class DireccionController {
 
 	private final DireccionService direccionService;
 
-    public DireccionController(DireccionService direccionService) {
-        this.direccionService = direccionService;
-    }
+	public DireccionController(DireccionService direccionService) {
+		this.direccionService = direccionService;
+	}
 
-    @PostMapping("/direcciones/{idCliente}")
-    public ResponseEntity<Direccion> agregarDireccion(@PathVariable Integer idCliente, @RequestBody DireccionDTO direccionDTO) {
-        Direccion direccionGuardada = direccionService.agregarDireccion(idCliente, direccionDTO);
-        return ResponseEntity.ok(direccionGuardada);
-    }
+	@PostMapping("/direcciones/{idCliente}")
+	public ResponseEntity<Direccion> agregarDireccion(@PathVariable Integer idCliente,
+			@RequestBody DireccionDTO direccionDTO) {
+		Direccion direccionGuardada = direccionService.agregarDireccion(idCliente, direccionDTO);
+		return ResponseEntity.ok(direccionGuardada);
+	}
 
-    @GetMapping("/direcciones/clientes/{idCliente}")
-    public ResponseEntity<ClienteDireccionesDTO> getDireccionesCliente(@PathVariable("idCliente") Integer idCliente) {
-        ClienteDireccionesDTO direcciones = direccionService.getDireccionesCliente(idCliente);
-        return ResponseEntity.ok(direcciones);
-    }
+	@GetMapping("/direcciones/clientes/{idCliente}")
+	public ResponseEntity<ClienteDireccionesDTO> getDireccionesCliente(@PathVariable("idCliente") Integer idCliente) {
+		ClienteDireccionesDTO direcciones = direccionService.getDireccionesCliente(idCliente);
+		return ResponseEntity.ok(direcciones);
+	}
 
-    
 }

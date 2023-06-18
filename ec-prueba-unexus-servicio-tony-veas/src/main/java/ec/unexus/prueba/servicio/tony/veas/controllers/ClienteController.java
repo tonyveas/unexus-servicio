@@ -49,8 +49,8 @@ public class ClienteController {
 	    try {
 	        return new ResponseEntity<>(clienteService.update(id, clienteDTO), HttpStatus.OK);
 	    } catch (IllegalArgumentException e) {
-	        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-	    }
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		}
 	}
 
 	@DeleteMapping(path = "/clientes/{id}")

@@ -8,8 +8,10 @@ import ec.unexus.prueba.servicio.tony.veas.entities.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
-    List<Cliente> findByNumeroIdentificacionContainingOrNombresContaining(String numeroIdentificacion, String nombres);
-    Cliente findByNumeroIdentificacion(String numeroIdentificacion);
-    List<Cliente> findAllByNumeroIdentificacion(String numeroIdentificacion);
-	
+	List<Cliente> findByNumeroIdentificacionContainingOrNombresContaining(String numeroIdentificacion, String nombres);
+
+	Cliente findByNumeroIdentificacion(String numeroIdentificacion);
+
+	List<Cliente> findAllByNumeroIdentificacion(String numeroIdentificacion);
+
 }

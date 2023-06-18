@@ -16,11 +16,8 @@ public class DatabaseConfiguration {
 
 	@Bean
 	public DataSource getDataSource() {
-		return DataSourceBuilder.create()
-								.driverClassName(dataSourceProperties.getDriverClassName())
-								.url(dataSourceProperties.getUrl())
-								.username(dataSourceProperties.getUsername())
-								.password(dataSourceProperties.getPassword())
-								.build();
+		return DataSourceBuilder.create().driverClassName(dataSourceProperties.getDriverClassName())
+				.url(dataSourceProperties.getUrl()).username(dataSourceProperties.getUsername())
+				.password(dataSourceProperties.getPassword()).build();
 	}
 }

@@ -2,7 +2,7 @@ package ec.unexus.prueba.servicio.tony.veas.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import ec.unexus.prueba.servicio.tony.veas.TipoDireccion;
+import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

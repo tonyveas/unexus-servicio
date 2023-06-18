@@ -8,7 +8,7 @@ public class DireccionDTO {
 	private String mainAddress;
 
 	private String typeAddress;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -41,14 +41,14 @@ public class DireccionDTO {
 		this.mainAddress = mainAddress;
 	}
 
-    public String getTypeAddress() {
-        return typeAddress;
-    }
+	public String getTypeAddress() {
+		return typeAddress;
+	}
 
-    public void setTypeAddress(String typeAddress) {
-        this.typeAddress = typeAddress;
-    }
-	
+	public void setTypeAddress(String typeAddress) {
+		this.typeAddress = typeAddress;
+	}
+
 	@Override
 	public String toString() {
 		return "DireccionDTO [id=" + id + ", mainProvince=" + mainProvince + ", mainCity=" + mainCity + ", mainAddress="
