@@ -26,6 +26,7 @@ app.datasource.username=postgres
 app.datasource.url=jdbc:postgresql://localhost:5432/unexus-database
 app.datasource.password=root
 app.datasource.driver-class-name=org.postgresql.Driver
+```
 
 ## Uso
 
@@ -60,4 +61,3 @@ Las contribuciones son bienvenidas. Para contribuir:
 ## Licencia
 
 Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.
-```
