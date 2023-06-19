@@ -12,13 +12,37 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 
 ## Configuración e instalación
 
-1. Clona el repositorio a tu máquina local usando `git clone https://github.com/tonyveas/unexus-servicio.git`.
-2. Navega hasta el directorio del proyecto con `cd unexus-servicio`.
-3. Ejecuta `mvn clean install` para construir el proyecto e instalar las dependencias.
-4. Crea una base de datos en PostgreSQL y asegúrate de que esté en ejecución.
-5. Actualiza `application.properties` con las credenciales de tu base de datos.
+# Creación de base de datos (PostgreSQL)
 
-Aquí tienes un ejemplo de configuración de la base de datos:
+Antes de clonar y ejecutar nuestra aplicación de spring boot necesitamos crear una base en PostgreSQL
+
+1. Descargar PostgreSQL si no lo tiene, de acuerdo a su sistema operativo. (https://postgresql.org/download)
+2. Configurar las credenciales de acceso para su base de datos. Para propósitos de ejercicio se uso (Pero puede configurarlo a su gusto):
+
+```Credenciales
+# Credenciales para acceder a la base de datos
+username=postgres
+password=root
+```
+
+3. Crear la base datos. Para propósitos de ejercicio se uso se usó el nombre:
+
+```Base
+# Nombre de base de datos en PostgreSQL
+unexus-database
+```
+
+# Clonación y configuración de proyecto de Spring Boot (Usando Eclipse)
+
+1. Abre Eclipse IDE.
+2. Ve a `File > Import`.
+3. En la ventana de importación, expande la carpeta `Maven` y selecciona `Existing Maven Projects`.
+4. Haz clic en `Next`.
+5. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio`.
+6. Haz clic en `Finish`. El proyecto se importará en Eclipse.
+7. Actualiza `application.properties` con las credenciales y las configuraciones de tu base de datos.
+
+Aquí hay un ejemplo de configuración de la base de datos:
 
 ```properties
 # Propiedades para configurar la base de datos
@@ -27,6 +51,10 @@ app.datasource.url=jdbc:postgresql://localhost:5432/unexus-database
 app.datasource.password=root
 app.datasource.driver-class-name=org.postgresql.Driver
 ```
+
+8. Damos clic derecho en la carpeta de nuestro proyecto ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven clean y esperamos que termine.
+9. Damos nuevamente clic derecho en la carpeta ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven install y esperamos que termine.
+10. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
 
 ## Uso
 
