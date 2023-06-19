@@ -1,7 +1,10 @@
-package ec.unexus.pruebaserviciotonyveas;
+package ec.unexus.prueba.servicio.tony.veas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import com.github.javafaker.Faker;
 
 @SpringBootApplication
 public class EcPruebaUnexusServicioTonyVeasApplication {
@@ -10,4 +13,9 @@ public class EcPruebaUnexusServicioTonyVeasApplication {
 		SpringApplication.run(EcPruebaUnexusServicioTonyVeasApplication.class, args);
 	}
 
+	@Bean
+    public Faker faker() {
+        return new Faker();
+    }
+	
 }
