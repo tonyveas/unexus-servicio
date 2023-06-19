@@ -9,6 +9,17 @@ import ec.unexus.prueba.servicio.tony.veas.repositories.ClienteRepository;
 import ec.unexus.prueba.servicio.tony.veas.repositories.DireccionRepository;
 import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
 
+/**
+ * Esta clase es un seeder de datos, diseñada para llenar la base de datos con datos iniciales
+ * para la aplicación. Se utiliza durante el inicio de la aplicación para poblar la base de datos
+ * con datos de prueba si no hay datos ya presentes.
+ *
+ * Implementa la interfaz CommandLineRunner de Spring Boot, que indica que la lógica dentro del
+ * método run se debe ejecutar después de que la aplicación se haya iniciado completamente.
+ *
+ * En este caso, el método run verifica si la tabla de clientes está vacía y, si es así, crea y
+ * guarda nuevos clientes y direcciones en la base de datos.
+ **/
 @Component
 public class DataSeeder implements CommandLineRunner {
 

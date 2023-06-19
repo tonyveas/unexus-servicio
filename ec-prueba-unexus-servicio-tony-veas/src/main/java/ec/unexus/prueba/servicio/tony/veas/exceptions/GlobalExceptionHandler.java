@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import jakarta.validation.ConstraintViolationException;
 
+/**
+ * Esta clase es un manejador global de excepciones para la aplicación, intercepta 
+ * ciertos tipos de excepciones y proporciona respuestas personalizadas para ellas.
+ * La anotación @ControllerAdvice indica que esta clase asistirá a todos los controladores 
+ * en la aplicación.
+ **/
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

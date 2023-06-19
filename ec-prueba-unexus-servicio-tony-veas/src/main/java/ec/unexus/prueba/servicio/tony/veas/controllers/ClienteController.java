@@ -19,6 +19,10 @@ import ec.unexus.prueba.servicio.tony.veas.entities.Cliente;
 import ec.unexus.prueba.servicio.tony.veas.services.ClienteService;
 import jakarta.validation.Valid;
 
+/**
+ * Controlador para la gestión de clientes.
+ * Proporciona endpoints para buscar, crear, editar y eliminar clientes.
+ */
 @RestController
 public class ClienteController {
 
@@ -29,12 +33,14 @@ public class ClienteController {
 		this.clienteService = clienteService;
 	}
 
+	/* Endpoint para buscar clientes */
 	@GetMapping(path = "/clientes")
 	public ResponseEntity<List<ClienteDTO>> buscarClientes(@RequestParam(required = false) String search) {
 	    List<ClienteDTO> clientes = clienteService.buscarClientes(search);
 	    return new ResponseEntity<>(clientes, HttpStatus.OK);
 	}
 
+	/* Endpoint para crear un cliente */
 	@PostMapping(path = "/clientes")
 	public ResponseEntity<Cliente> crearCliente(@Valid @RequestBody ClienteDTO clienteDTO) {
 		try {
@@ -45,6 +51,7 @@ public class ClienteController {
 		}
 	}
 
+	/* Endpoint para editar un cliente existente */
 	@PutMapping(path = "/clientes/{id}")
 	public ResponseEntity<ClienteDTO> editarCliente(@PathVariable Integer id, @Valid @RequestBody ClienteDTO clienteDTO) {
 	    try {
@@ -54,6 +61,7 @@ public class ClienteController {
 		}
 	}
 
+	/* Endpoint para eliminar un cliente */
 	@DeleteMapping(path = "/clientes/{id}")
 	public ResponseEntity<Void> eliminarCliente(@PathVariable Integer id) {
 		clienteService.eliminarCliente(id);

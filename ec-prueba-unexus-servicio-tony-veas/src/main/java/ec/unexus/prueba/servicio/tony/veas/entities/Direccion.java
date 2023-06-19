@@ -12,6 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+
+/**
+ * Esta clase es utilizada para la persistencia de datos en una aplicación que utiliza la 
+ * Java Persistence API (JPA) y Hibernate para interactuar con una base de datos. La clase Direccion 
+ * corresponde a una tabla 'direccion' en la base de datos.
+*/
 @Entity
 public class Direccion {
 

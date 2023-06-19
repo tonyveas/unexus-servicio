@@ -24,6 +24,7 @@ import jakarta.validation.Path;
 
 public class GlobalExceptionHandlerTest {
 
+	// Creando variable usada en el test
 	private GlobalExceptionHandler handler = new GlobalExceptionHandler();
 
 	@Test
@@ -33,19 +34,14 @@ public class GlobalExceptionHandlerTest {
 		MapBindingResult bindingResult = new MapBindingResult(bindingResultModel, "target");
 		FieldError error = new FieldError("target", "field", "defaultMessage");
 		bindingResult.addError(error);
-
 		// Obtenemos un MethodParameter
 		Method method = GlobalExceptionHandlerTest.class.getMethod("handleValidationExceptions");
 		MethodParameter methodParameter = new MethodParameter(method, -1);
-
 		// Preparamos la excepción
 		MethodArgumentNotValidException ex = new MethodArgumentNotValidException(methodParameter, bindingResult);
-
 		ResponseEntity<Object> response = handler.handleValidationExceptions(ex);
-
 		// Verificamos el estado HTTP
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-
 		// Verificamos que el cuerpo de la respuesta contiene el error
 		assertTrue(response.getBody() instanceof Map);
 		@SuppressWarnings("unchecked")
@@ -61,15 +57,11 @@ public class GlobalExceptionHandlerTest {
 		when(violation.getPropertyPath()).thenReturn(mock(Path.class));
 		when(violation.getPropertyPath().toString()).thenReturn("field");
 		when(violation.getMessage()).thenReturn("defaultMessage");
-
 		// Preparamos la excepción
 		ConstraintViolationException ex = new ConstraintViolationException(Set.of(violation));
-
 		ResponseEntity<Object> response = handler.handleConstraintViolationExceptions(ex);
-
 		// Verificamos el estado HTTP
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-
 		// Verificamos que el cuerpo de la respuesta contiene el error
 		assertTrue(response.getBody() instanceof Map);
 		@SuppressWarnings("unchecked")

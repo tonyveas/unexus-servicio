@@ -14,6 +14,16 @@ import ec.unexus.prueba.servicio.tony.veas.repositories.ClienteRepository;
 import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
 import jakarta.transaction.Transactional;
 
+/**
+ * La clase ClienteService es un servicio de Spring Boot que se encarga de la lógica para los clientes.
+ * El servicio interactúa con el repositorio de clientes para realizar operaciones CRUD (crear, leer, actualizar, borrar)
+ * en la base de datos.
+ *
+ * Las operaciones incluyen buscar clientes por un término de búsqueda, convertir una entidad Cliente a un DTO, encontrar 
+ * un cliente por su número de identificación, crear un nuevo cliente a partir de un DTO, verificar si un tipo de dirección 
+ * es válido, guardar un cliente en la base de datos, actualizar los datos de un cliente existente con datos 
+ * de un DTO, encontrar un cliente por su ID y eliminar un cliente de la base de datos por su ID.
+ **/
 @Service
 public class ClienteService {
 

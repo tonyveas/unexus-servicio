@@ -9,8 +9,10 @@ import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
 
 public class DireccionTest {
 
+	// Creando variable usada en el test
 	private Direccion direccion;
 
+	// Inicialización de variables
 	@BeforeEach
 	void setUp() {
 		direccion = new Direccion();
@@ -18,25 +20,23 @@ public class DireccionTest {
 
 	@Test
 	void testSettersAndGetters() {
+		// Instanciando y creando objetos de pruebas
 		direccion.setId(1);
-		assertEquals(1, direccion.getId());
-
 		direccion.setProvincia("Pichincha");
-		assertEquals("Pichincha", direccion.getProvincia());
-
 		direccion.setCiudad("Quito");
-		assertEquals("Quito", direccion.getCiudad());
-
 		direccion.setDireccion("Av. Amazonas");
-		assertEquals("Av. Amazonas", direccion.getDireccion());
-
 		direccion.setTipoDireccion(TipoDireccion.MATRIZ);
-		assertEquals(TipoDireccion.MATRIZ, direccion.getTipoDireccion());
-
 		Cliente cliente = new Cliente();
 		direccion.setCliente(cliente);
-		assertEquals(cliente, direccion.getCliente());
 		direccion.toString();
+		
+		// Aserciones y verificaciones
+		assertEquals(1, direccion.getId());
+		assertEquals("Pichincha", direccion.getProvincia());
+		assertEquals("Quito", direccion.getCiudad());
+		assertEquals("Av. Amazonas", direccion.getDireccion());
+		assertEquals(TipoDireccion.MATRIZ, direccion.getTipoDireccion());
+		assertEquals(cliente, direccion.getCliente());
 	}
 
 }

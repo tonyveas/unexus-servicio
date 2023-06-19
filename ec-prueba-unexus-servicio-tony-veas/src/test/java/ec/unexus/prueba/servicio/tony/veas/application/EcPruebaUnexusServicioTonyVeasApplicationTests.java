@@ -1,4 +1,4 @@
-package ec.unexus.prueba.servicio.tony.veas;
+package ec.unexus.prueba.servicio.tony.veas.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,13 +12,13 @@ import org.springframework.context.ApplicationContext;
 @SpringBootTest
 class EcPruebaUnexusServicioTonyVeasApplicationTests {
 
+	// Declaración de mocks
 	@Mock
 	private ApplicationContext context;
-
 	@Mock
 	private EcPruebaUnexusServicioTonyVeasApplication EcPruebaUnexusServicioTonyVeasApplication;
 
-	// Inicialización de variables que se usan en las pruebas
+	// Inicialización mocks
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.openMocks(this);

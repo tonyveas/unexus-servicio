@@ -26,9 +26,11 @@ public class DireccionControllerTest {
 	@Mock
 	private DireccionService direccionService;
 
-	// Usamos @InjectMocks para que Mockito cree una instancia de
-	// DireccionController
-	// e inyecte el mock de ClienteRepository en él.
+	/*
+	 * Usamos @InjectMocks para que Mockito cree una instancia de
+	 * DireccionController
+	 * e inyecte el mock de ClienteRepository en él.
+	 */
 	@InjectMocks
 	private DireccionController direccionController;
 
@@ -40,14 +42,13 @@ public class DireccionControllerTest {
 
 	@Test
 	public void testAgregarDireccionClienteExistente() {
+		// Instanciando objetos de pruebas
 		Integer idCliente = 1;
 		DireccionDTO direccionDTO = new DireccionDTO();
 		Direccion direccion = new Direccion();
-
 		when(direccionService.agregarDireccion(idCliente, direccionDTO)).thenReturn(direccion);
-
 		ResponseEntity<Direccion> response = direccionController.agregarDireccion(idCliente, direccionDTO);
-
+		// Aserciones y verificaciones
 		verify(direccionService, times(1)).agregarDireccion(idCliente, direccionDTO);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(direccion, response.getBody());
@@ -55,15 +56,15 @@ public class DireccionControllerTest {
 
 	@Test
 	public void testAgregarDireccionClienteNoExistente() {
+		// Instanciando objetos de pruebas
 		Integer idCliente = 1;
 		DireccionDTO direccionDTO = new DireccionDTO();
-
 		when(direccionService.agregarDireccion(idCliente, direccionDTO))
 				.thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
-
 		try {
 			direccionController.agregarDireccion(idCliente, direccionDTO);
 		} catch (ResponseStatusException e) {
+			// Aserciones y verificaciones
 			verify(direccionService, times(1)).agregarDireccion(idCliente, direccionDTO);
 			assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
 			assertEquals("Cliente no encontrado", e.getReason());
@@ -72,13 +73,13 @@ public class DireccionControllerTest {
 
 	@Test
 	public void testGetDireccionesClienteExistente() {
+		// Instanciando objetos de pruebas
 		Integer idCliente = 1;
 		ClienteDireccionesDTO clienteDireccionesDTO = new ClienteDireccionesDTO();
-
+		// Configurando comportamiento de los mocks
 		when(direccionService.getDireccionesCliente(idCliente)).thenReturn(clienteDireccionesDTO);
-
 		ResponseEntity<ClienteDireccionesDTO> response = direccionController.getDireccionesCliente(idCliente);
-
+		// Aserciones y verificaciones
 		verify(direccionService, times(1)).getDireccionesCliente(idCliente);
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		assertEquals(clienteDireccionesDTO, response.getBody());
@@ -86,14 +87,15 @@ public class DireccionControllerTest {
 
 	@Test
 	public void testGetDireccionesClienteNoExistente() {
+		// Instanciando objetos de pruebas
 		Integer idCliente = 1;
-
+		// Configurando comportamiento de los mocks
 		when(direccionService.getDireccionesCliente(idCliente))
 				.thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
-
 		try {
 			direccionController.getDireccionesCliente(idCliente);
 		} catch (ResponseStatusException e) {
+			// Aserciones y verificaciones
 			verify(direccionService, times(1)).getDireccionesCliente(idCliente);
 			assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());
 			assertEquals("Cliente no encontrado", e.getReason());

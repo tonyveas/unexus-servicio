@@ -37,7 +37,7 @@ public class DireccionServiceTest {
 	private DireccionRepository direccionRepository;
 
 	// Usamos @InjectMocks para que Mockito cree una instancia de DireccionService
-	// e inyecte el mock de ClienteRepository en él.
+	// e inyecte el mock de ClienteRepository y DireccionRepository en él.
 	@InjectMocks
 	private DireccionService direccionService;
 
@@ -51,19 +51,17 @@ public class DireccionServiceTest {
 	@Test
 	@Transactional
 	public void testAgregarDireccion_Matriz_success() {
+		// Instanciando objetos de pruebas
 		Cliente cliente = new Cliente();
 		cliente.setId(1);
-
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setTypeAddress(TipoDireccion.MATRIZ.name());
-
 		Direccion nuevaDireccion = new Direccion();
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
 		when(direccionRepository.save(any(Direccion.class))).thenReturn(nuevaDireccion);
-
 		Direccion resultado = direccionService.agregarDireccion(1, direccionDTO);
-
+		// Aserciones y verificaciones
 		assertEquals(nuevaDireccion, resultado);
 		verify(clienteRepository, times(1)).save(cliente);
 	}
@@ -71,11 +69,12 @@ public class DireccionServiceTest {
 	@Test
 	@Transactional
 	public void testAgregarDireccion_notFound() {
+		// Instanciando objetos de pruebas
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setTypeAddress(TipoDireccion.MATRIZ.name());
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.empty());
-
+		// Aserciones y verificaciones
 		assertThrows(ResponseStatusException.class, () -> {
 			direccionService.agregarDireccion(1, direccionDTO);
 		});
@@ -84,15 +83,15 @@ public class DireccionServiceTest {
 	@Test
 	@Transactional
 	public void testAgregarDireccion_SegundaMatriz() {
+		// Instanciando objetos de pruebas
 		Cliente cliente = new Cliente();
 		cliente.setId(1);
 		cliente.setDireccionMatriz(new Direccion());
-
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setTypeAddress(TipoDireccion.MATRIZ.name());
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
-
+		// Aserciones y verificaciones
 		assertThrows(ResponseStatusException.class, () -> {
 			direccionService.agregarDireccion(1, direccionDTO);
 		});
@@ -100,13 +99,13 @@ public class DireccionServiceTest {
 
 	@Test
 	public void testCreateFromDTO_TipoDireccionNotProvided() {
+		// Instanciando objetos de pruebas
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setMainProvince("Provincia");
 		direccionDTO.setMainCity("Ciudad");
 		direccionDTO.setMainAddress("Direccion");
-
 		Direccion direccion = direccionService.createFromDTO(direccionDTO);
-
+		// Aserciones y verificaciones
 		assertEquals(TipoDireccion.MATRIZ, direccion.getTipoDireccion());
 		assertEquals("Provincia", direccion.getProvincia());
 		assertEquals("Ciudad", direccion.getCiudad());
@@ -115,14 +114,14 @@ public class DireccionServiceTest {
 
 	@Test
 	public void testCreateFromDTO_TipoDireccionProvided() {
+		// Instanciando objetos de pruebas
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setMainProvince("Provincia");
 		direccionDTO.setMainCity("Ciudad");
 		direccionDTO.setMainAddress("Direccion");
 		direccionDTO.setTypeAddress(TipoDireccion.SUCURSAL.name());
-
 		Direccion direccion = direccionService.createFromDTO(direccionDTO);
-
+		// Aserciones y verificaciones
 		assertEquals(TipoDireccion.SUCURSAL, direccion.getTipoDireccion());
 		assertEquals("Provincia", direccion.getProvincia());
 		assertEquals("Ciudad", direccion.getCiudad());
@@ -131,42 +130,39 @@ public class DireccionServiceTest {
 
 	@Test
 	public void testGetDireccionesCliente_conDirecciones() {
+		// Instanciando objetos de pruebas
 		Cliente cliente = new Cliente();
 		cliente.setId(1);
-
 		Direccion direccion1 = new Direccion();
 		direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
 		direccion1.setProvincia("Provincia matriz");
 		direccion1.setCiudad("Ciudad matriz");
 		direccion1.setDireccion("Direccion matriz");
-
 		Direccion direccion2 = new Direccion();
 		direccion2.setTipoDireccion(TipoDireccion.SUCURSAL);
 		direccion2.setProvincia("Provincia 2");
 		direccion2.setCiudad("Ciudad 2");
 		direccion2.setDireccion("Direccion 2");
-
 		Direccion direccion3 = new Direccion();
 		direccion3.setTipoDireccion(TipoDireccion.SUCURSAL);
 		direccion3.setProvincia("Provincia 3");
 		direccion3.setCiudad("Ciudad 3");
 		direccion3.setDireccion("Direccion 3");
-
 		cliente.setDireccionesSucursales(Arrays.asList(direccion1, direccion2));
 		cliente.setDireccionMatriz(direccion3);
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
-
 		ClienteDireccionesDTO resultado = direccionService.getDireccionesCliente(1);
-
+		// Aserciones y verificaciones
 		assertEquals(direccion3, resultado.getDireccionMatriz());
 		assertEquals(1, resultado.getDireccionesSucursales().size());
 	}
 
 	@Test
     public void testGetDireccionesCliente_noExisteCliente() {
+		// Configurando comportamiento de los mocks
         when(clienteRepository.findById(1)).thenReturn(Optional.empty());
-
+		// Aserciones y verificaciones
         assertThrows(ResponseStatusException.class, () -> {
             direccionService.getDireccionesCliente(1);
         });
@@ -174,6 +170,7 @@ public class DireccionServiceTest {
 
 	@Test
 	public void testSaveDireccion() {
+		// Instanciando objetos de pruebas
 		Direccion direccion = new Direccion();
 		direccion.setId(1);
 		direccion.setProvincia("provincia");
@@ -187,50 +184,44 @@ public class DireccionServiceTest {
 		cliente.setTipoIdentificacion(TipoDireccion.MATRIZ.toString());
 		cliente.setDireccionesSucursales(new ArrayList<Direccion>());
 		direccion.setCliente(cliente);
-
+		// Configurando comportamiento de los mocks
 		when(direccionRepository.save(any(Direccion.class))).thenReturn(direccion);
-
 		Direccion savedDireccion = direccionService.save(direccion);
-
+		// Aserciones y verificaciones
 		verify(direccionRepository, times(1)).save(direccion);
-
 		assertEquals(direccion, savedDireccion);
 	}
 	
 	@Test
 	@Transactional
 	public void testAgregarDireccion_Matriz_success_case_sucursal_default() {
+		// Instanciando objetos de pruebas
 		Cliente cliente = new Cliente();
 		cliente.setId(1);
-
 		DireccionDTO direccionDTO = new DireccionDTO();
-
 		Direccion nuevaDireccion = new Direccion();
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
 		when(direccionRepository.save(any(Direccion.class))).thenReturn(nuevaDireccion);
-
 		Direccion resultado = direccionService.agregarDireccion(1, direccionDTO);
-
+		// Aserciones y verificaciones
 		assertEquals(nuevaDireccion, resultado);
 	}
 	
 	@Test
 	@Transactional
 	public void testAgregarDireccion_Matriz_success_case_sucursal() {
+		// Instanciando objetos de pruebas
 		Cliente cliente = new Cliente();
 		cliente.setId(1);
-
 		DireccionDTO direccionDTO = new DireccionDTO();
 		direccionDTO.setTypeAddress(TipoDireccion.SUCURSAL.name());
-
 		Direccion nuevaDireccion = new Direccion();
-
+		// Configurando comportamiento de los mocks
 		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
 		when(direccionRepository.save(any(Direccion.class))).thenReturn(nuevaDireccion);
-
 		Direccion resultado = direccionService.agregarDireccion(1, direccionDTO);
-
+		// Aserciones y verificaciones
 		assertEquals(nuevaDireccion, resultado);
 	}
 	
