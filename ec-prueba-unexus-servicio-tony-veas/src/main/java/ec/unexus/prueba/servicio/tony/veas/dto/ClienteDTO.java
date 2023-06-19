@@ -1,16 +1,45 @@
 package ec.unexus.prueba.servicio.tony.veas.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class ClienteDTO {
 
 	private Integer id;
+	@NotEmpty
 	private String identificationType;
+	
+	@NotEmpty
+	@Size(min = 10, 
+		  max = 10, 
+		  message = "La cantidad de dígitos del número de identificación "
+					+ "(numeroIdentificacion/identificationNumber) deber ser 10.")
 	private String identificationNumber;
+	
+	@NotEmpty(message = "El campo de nombres o names no debe estar vacío.")
 	private String names;
+	
+	@NotEmpty(message = "El campo de correo o email no debe estar vacío.")
+	@Email(message = "Debe ingresar una dirección de correo electrónico con formato correcto")
 	private String email;
+	
+	@NotEmpty(message = "El campo de numeroCelular o cellphone no debe estar vacío.")
+	@Size(min = 10,
+	      max = 10, 
+	      message = "La cantidad de dígitos del numeroCelular o cellphone "
+			+ "deber ser 10.")
 	private String cellphone;
+	
+	@NotEmpty(message = "El campo de provincia o mainProvince no debe estar vacío.")
 	private String mainProvince;
+	
+	@NotEmpty(message = "El campo de ciudad o mainCity no debe estar vacío.")
 	private String mainCity;
+	
+	@NotEmpty(message = "El campo de direccion o mainAddress no debe estar vacío.")
 	private String mainAddress;
+	
 	private String typeAddress;
 
 	public Integer getId() {

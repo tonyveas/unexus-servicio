@@ -24,28 +24,14 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@NotEmpty
 	private String tipoIdentificacion;
 
-	@NotEmpty
-	@Size(min = 10, 
-		  max = 10, 
-		  message = "La cantidad de dígitos del número de identificación "
-					+ "(numeroIdentificacion/identificationNumber) deber ser 10.")
 	private String numeroIdentificacion;
 
-	@NotEmpty(message = "El campo de nombres o names no debe estar vacío.")
 	private String nombres;
 
-	@NotEmpty(message = "El campo de correo o email no debe estar vacío.")
-	@Email(message = "Debe ingresar una dirección de correo electrónico con formato correcto")
 	private String correo;
 
-	@NotEmpty(message = "El campo de numeroCelular o cellphone no debe estar vacío.")
-	@Size(min = 10,
-	      max = 10, 
-	      message = "La cantidad de dígitos del numeroCelular o cellphone "
-			+ "deber ser 10.")
 	private String numeroCelular;
 
 	@OneToOne(cascade = CascadeType.ALL)

@@ -28,28 +28,35 @@ public class DireccionService {
 	}
 
 	public Direccion agregarDireccion(Integer idCliente, DireccionDTO direccionDTO) {
-		Cliente cliente = clienteRepository.findById(idCliente)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"No se encontró un cliente con el ID proporcionado"));
+	    Cliente cliente = clienteRepository.findById(idCliente)
+	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+	                    "No se encontró un cliente con el ID proporcionado"));
 
-		if ((direccionDTO.getTypeAddress() == null
-				|| TipoDireccion.MATRIZ.name().equalsIgnoreCase(direccionDTO.getTypeAddress()))
-				&& cliente.getDireccionMatriz() != null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El cliente ya tiene una dirección matriz.");
-		}
+	    // Revisa si el typeAddress es null o es SUCURSAL, entonces establece como SUCURSAL.
+	    if (direccionDTO.getTypeAddress() == null
+	            || TipoDireccion.SUCURSAL.name().equalsIgnoreCase(direccionDTO.getTypeAddress())) {
+	        direccionDTO.setTypeAddress(TipoDireccion.SUCURSAL.name()); // Establece como SUCURSAL por defecto
+	    } else {
+	        // En caso contrario, establece como MATRIZ, pero primero verifica si ya existe una dirección MATRIZ
+	        if (cliente.getDireccionMatriz() != null) {
+	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El cliente ya tiene una dirección matriz.");
+	        }
+	        direccionDTO.setTypeAddress(TipoDireccion.MATRIZ.name());
+	    }
 
-		Direccion nuevaDireccion = createFromDTO(direccionDTO);
-		nuevaDireccion.setCliente(cliente);
-		Direccion direccionGuardada = save(nuevaDireccion);
+	    Direccion nuevaDireccion = createFromDTO(direccionDTO);
+	    nuevaDireccion.setCliente(cliente);
+	    Direccion direccionGuardada = save(nuevaDireccion);
 
-		if (direccionDTO.getTypeAddress() == null
-				|| TipoDireccion.MATRIZ.name().equalsIgnoreCase(direccionDTO.getTypeAddress())) {
-			cliente.setDireccionMatriz(direccionGuardada);
-			clienteRepository.save(cliente);
-		}
+	    // Si el typeAddress es MATRIZ, actualiza la dirección matriz en el cliente.
+	    if (TipoDireccion.MATRIZ.name().equalsIgnoreCase(direccionDTO.getTypeAddress())) {
+	        cliente.setDireccionMatriz(direccionGuardada);
+	        clienteRepository.save(cliente);
+	    }
 
-		return direccionGuardada;
+	    return direccionGuardada;
 	}
+
 
 	public Direccion createFromDTO(DireccionDTO direccionDTO) {
 		Direccion direccion = new Direccion();

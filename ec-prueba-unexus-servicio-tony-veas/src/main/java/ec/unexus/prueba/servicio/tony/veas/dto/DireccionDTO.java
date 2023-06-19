@@ -1,10 +1,18 @@
 package ec.unexus.prueba.servicio.tony.veas.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class DireccionDTO {
 
 	private Integer id;
+	
+	@NotEmpty(message = "El campo de provincia o mainProvince no debe estar vacío.")
 	private String mainProvince;
+	
+	@NotEmpty(message = "El campo de ciudad o mainCity no debe estar vacío.")
 	private String mainCity;
+	
+	@NotEmpty(message = "El campo de direccion o mainAddress no debe estar vacío.")
 	private String mainAddress;
 
 	private String typeAddress;

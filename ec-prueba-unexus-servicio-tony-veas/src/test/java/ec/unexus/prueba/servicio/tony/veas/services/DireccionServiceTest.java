@@ -47,6 +47,7 @@ public class DireccionServiceTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
+	
 	@Test
 	@Transactional
 	public void testAgregarDireccion_Matriz_success() {
@@ -195,5 +196,42 @@ public class DireccionServiceTest {
 
 		assertEquals(direccion, savedDireccion);
 	}
+	
+	@Test
+	@Transactional
+	public void testAgregarDireccion_Matriz_success_case_sucursal_default() {
+		Cliente cliente = new Cliente();
+		cliente.setId(1);
 
+		DireccionDTO direccionDTO = new DireccionDTO();
+
+		Direccion nuevaDireccion = new Direccion();
+
+		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
+		when(direccionRepository.save(any(Direccion.class))).thenReturn(nuevaDireccion);
+
+		Direccion resultado = direccionService.agregarDireccion(1, direccionDTO);
+
+		assertEquals(nuevaDireccion, resultado);
+	}
+	
+	@Test
+	@Transactional
+	public void testAgregarDireccion_Matriz_success_case_sucursal() {
+		Cliente cliente = new Cliente();
+		cliente.setId(1);
+
+		DireccionDTO direccionDTO = new DireccionDTO();
+		direccionDTO.setTypeAddress(TipoDireccion.SUCURSAL.name());
+
+		Direccion nuevaDireccion = new Direccion();
+
+		when(clienteRepository.findById(1)).thenReturn(Optional.of(cliente));
+		when(direccionRepository.save(any(Direccion.class))).thenReturn(nuevaDireccion);
+
+		Direccion resultado = direccionService.agregarDireccion(1, direccionDTO);
+
+		assertEquals(nuevaDireccion, resultado);
+	}
+	
 }
