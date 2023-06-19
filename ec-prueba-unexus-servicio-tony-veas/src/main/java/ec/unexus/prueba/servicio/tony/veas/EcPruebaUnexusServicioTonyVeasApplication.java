@@ -13,9 +13,6 @@ public class EcPruebaUnexusServicioTonyVeasApplication {
 		SpringApplication.run(EcPruebaUnexusServicioTonyVeasApplication.class, args);
 	}
 
-	@Bean
-    public Faker faker() {
-        return new Faker();
-    }
+
 	
 }
