@@ -34,7 +34,7 @@ public class DataSeederTest {
     public void testRun() throws Exception {
         when(clienteRepo.count()).thenReturn(0L);
         dataSeeder.run();
-        verify(direccionRepo, times(3)).save(any());
+        verify(direccionRepo, times(5)).save(any());
     }
 
 	@Test

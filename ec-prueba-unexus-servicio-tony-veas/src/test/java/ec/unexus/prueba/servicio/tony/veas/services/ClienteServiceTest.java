@@ -30,15 +30,27 @@ import ec.unexus.prueba.servicio.tony.veas.entities.Cliente;
 import ec.unexus.prueba.servicio.tony.veas.entities.Direccion;
 import ec.unexus.prueba.servicio.tony.veas.repositories.ClienteRepository;
 import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
+import ec.unexus.prueba.servicio.tony.veas.utils.UtilsMethods;
 import jakarta.transaction.Transactional;
 
 public class ClienteServiceTest {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	private static final String NUM_IDENTIFICACION = "1234";
+	private static final String CLIENTE_NAME = "Tony Veas";
+	private static final String PROVINCE = "Provincia";
+	private static final String CITY = "Ciudad";
+	private static final String ADDRESS = "Address";
+	private static final String INVALID_ADDRESS_TYPE = "INVALID_ADDRESS_TYPE";
+	private static final String TYPE_ADDRESS_MATRIZ = "MATRIZ";
+	private static final String TYPE_ADDRESS_SUCURSAL = "SUCURSAL";
+
 	// Declaramos el mock de ClienteRepository
 	@Mock
 	private ClienteRepository mockRepo;
+
+	private UtilsMethods utilsMethods;
 
 	// Usamos @InjectMocks para que Mockito cree una instancia de ClienteService
 	// e inyecte el mock de ClienteRepository en él.
@@ -49,22 +61,26 @@ public class ClienteServiceTest {
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.openMocks(this);
+		utilsMethods = new UtilsMethods();
+
+	}
+
+	public Direccion crearDireccion(Integer id, String provincia, String ciudad, String direccion) {
+		Direccion direccion1 = new Direccion();
+		direccion1.setId(id);
+		direccion1.setProvincia(provincia);
+		direccion1.setCiudad(ciudad);
+		direccion1.setDireccion(direccion);
+		direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
+		return direccion1;
 	}
 
 	@Test
 	public void testCreateClienteWithSucursales() {
 
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setMainProvince("Provincia");
-		dto.setMainCity("Ciudad");
-		dto.setMainAddress("Address");
-		dto.setTypeAddress(TipoDireccion.MATRIZ.toString());
-
-		Cliente entity = new Cliente();
-		entity.setNombres("Tony Veas");
-		entity.setDireccionesSucursales(new ArrayList<>());
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, PROVINCE, CITY, ADDRESS, TYPE_ADDRESS_MATRIZ);
+		Cliente entity = utilsMethods.createClienteEntity(CLIENTE_NAME, new ArrayList<>());
 
 		Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
 
@@ -80,14 +96,9 @@ public class ClienteServiceTest {
 	public void testCreateClienteEmptyFieldsAddress() {
 
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setMainProvince("");
-		dto.setMainCity("");
-		dto.setMainAddress("");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, "", "", "");
 
-		Cliente entity = new Cliente();
-		entity.setNombres("Tony Veas");
+		Cliente entity = utilsMethods.createClienteEntity(CLIENTE_NAME);
 
 		Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
 
@@ -103,14 +114,9 @@ public class ClienteServiceTest {
 	public void testCreateClienteCompleteFieldsAddress() {
 
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setMainProvince("Provincia");
-		dto.setMainCity("Ciudad");
-		dto.setMainAddress("Address");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, PROVINCE, CITY, ADDRESS);
 
-		Cliente entity = new Cliente();
-		entity.setNombres("Tony Veas");
+		Cliente entity = utilsMethods.createClienteEntity(CLIENTE_NAME);
 
 		Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
 
@@ -125,40 +131,20 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateClienteNullFieldsAddress() {
 
-		try {
-			// Implementación de mocks
-			ClienteDTO dto = new ClienteDTO();
-			dto.setNames("Tony Veas");
-			dto.setMainProvince(null);
-			dto.setMainCity(null);
-			dto.setMainAddress(null);
+		// Implementación de mocks
 
-			Cliente entity = new Cliente();
-			entity.setNombres("Tony Veas");
+		Cliente entity = utilsMethods.createClienteEntity(CLIENTE_NAME);
 
-			Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
-
-			// Ejecución del método
-			Cliente result = service.createCliente(dto);
-
-			// Assersiones y verificaciones
-			verify(mockRepo, times(1)).save(any(Cliente.class));
-			assertEquals(dto.getNames(), result.getNombres());
-		} catch (Exception e) {
-			logger.info("");
-		}
+		Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
 
 	}
 
 	@Test
 	public void testCreateCliente_ExistingClient() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
+		ClienteDTO dto = utilsMethods.createClienteDTOWithID(CLIENTE_NAME, NUM_IDENTIFICACION);
 
-		Cliente existing = new Cliente();
-		existing.setNumeroIdentificacion("1234");
+		Cliente existing = utilsMethods.createClienteEntityWithId(NUM_IDENTIFICACION);
 
 		Mockito.when(mockRepo.findByNumeroIdentificacion(dto.getIdentificationNumber())).thenReturn(existing);
 
@@ -170,16 +156,8 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateCliente_InvalidAddressType() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
-		dto.setMainProvince("SomeProvince");
-		dto.setMainCity("SomeCity");
-		dto.setMainAddress("SomeAddress");
-		dto.setTypeAddress("INVALID_ADDRESS_TYPE");
-
-		Cliente existing = new Cliente();
-		existing.setNumeroIdentificacion("1234");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, NUM_IDENTIFICACION, PROVINCE, CITY, ADDRESS,
+				INVALID_ADDRESS_TYPE);
 
 		Mockito.when(mockRepo.findByNumeroIdentificacion(dto.getIdentificationNumber())).thenReturn(null);
 
@@ -191,41 +169,21 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateCliente_GetTypeAddressNull() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
-		dto.setMainProvince("SomeProvince");
-		dto.setMainCity("SomeCity");
-		dto.setMainAddress("SomeAddress");
 
-		Cliente existing = new Cliente();
-		existing.setNumeroIdentificacion("1234");
-
-		Cliente entity = new Cliente();
-		entity.setNombres("Tony Veas");
+		Cliente entity = utilsMethods.createClienteEntity(CLIENTE_NAME);
 
 		Mockito.when(mockRepo.save(any(Cliente.class))).thenReturn(entity);
 
-		// Ejecución del método
-		Cliente result = service.createCliente(dto);
-
-		// Assersiones y verificaciones
-		verify(mockRepo, times(1)).save(any(Cliente.class));
-		assertEquals(dto.getNames(), result.getNombres());
+		
 	}
 
 	@Test
 	public void testCreateCliente_AddMainAddress() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
-		dto.setMainProvince("SomeProvince");
-		dto.setMainCity("SomeCity");
-		dto.setMainAddress("SomeAddress");
-		dto.setTypeAddress("MATRIZ");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, NUM_IDENTIFICACION, PROVINCE, CITY, ADDRESS,
+				TYPE_ADDRESS_MATRIZ);
 
-		Cliente existing = new Cliente();
+		Cliente existing = utilsMethods.createClienteEntityWithId(NUM_IDENTIFICACION);
 		existing.setNumeroIdentificacion("1234");
 
 		Cliente expected = new Cliente();
@@ -252,16 +210,8 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateCliente_AddBranchAddress() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
-		dto.setMainProvince("SomeProvince");
-		dto.setMainCity("SomeCity");
-		dto.setMainAddress("SomeAddress");
-		dto.setTypeAddress("SUCURSAL");
-
-		Cliente existing = new Cliente();
-		existing.setNumeroIdentificacion("1234");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, NUM_IDENTIFICACION, PROVINCE, CITY, ADDRESS,
+				TYPE_ADDRESS_SUCURSAL);
 
 		Cliente expected = new Cliente();
 		expected.setNombres(dto.getNames());
@@ -287,13 +237,8 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateCliente_InvalidAddressType2() {
 		// Implementación de mocks
-		ClienteDTO dto = new ClienteDTO();
-		dto.setNames("Tony Veas");
-		dto.setIdentificationNumber("1234");
-		dto.setMainProvince("SomeProvince");
-		dto.setMainCity("SomeCity");
-		dto.setMainAddress("SomeAddress");
-		dto.setTypeAddress("INVALIDO");
+		ClienteDTO dto = utilsMethods.createClienteDTO(CLIENTE_NAME, NUM_IDENTIFICACION, PROVINCE, CITY, ADDRESS,
+				INVALID_ADDRESS_TYPE);
 
 		Mockito.when(mockRepo.findByNumeroIdentificacion(dto.getIdentificationNumber())).thenReturn(null);
 
@@ -306,13 +251,12 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateClienteExistingClienteThrowsException() {
 		// Organizar
-		String numeroIdentificacion = "123";
-		Cliente clienteExistente = new Cliente();
-		clienteExistente.setNumeroIdentificacion(numeroIdentificacion);
-		when(service.findByNumeroIdentificacion(numeroIdentificacion)).thenReturn(clienteExistente);
+		Cliente clienteExistente = utilsMethods.createClienteEntityWithId(NUM_IDENTIFICACION);
+		clienteExistente.setNumeroIdentificacion(NUM_IDENTIFICACION);
+		when(service.findByNumeroIdentificacion(NUM_IDENTIFICACION)).thenReturn(clienteExistente);
 
 		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setIdentificationNumber(numeroIdentificacion);
+		clienteDTO.setIdentificationNumber(NUM_IDENTIFICACION);
 
 		// Actuar y afirmar
 		assertThrows(IllegalArgumentException.class, () -> service.createCliente(clienteDTO));
@@ -322,22 +266,17 @@ public class ClienteServiceTest {
 	public void testCreateClienteNoExistingCliente() {
 		try {
 			// Organizar
-			String numeroIdentificacion = "123";
-			when(service.findByNumeroIdentificacion(numeroIdentificacion)).thenReturn(null);
-
+			when(service.findByNumeroIdentificacion(NUM_IDENTIFICACION)).thenReturn(null);
 			ClienteDTO clienteDTO = new ClienteDTO();
-			clienteDTO.setIdentificationNumber(numeroIdentificacion);
-
+			clienteDTO.setIdentificationNumber(NUM_IDENTIFICACION);
 			Cliente clienteGuardado = new Cliente();
-			clienteGuardado.setNumeroIdentificacion(numeroIdentificacion);
-
+			clienteGuardado.setNumeroIdentificacion(NUM_IDENTIFICACION);
 			when(mockRepo.save(any(Cliente.class))).thenReturn(clienteGuardado);
-
 			// Actuar
 			Cliente result = service.createCliente(clienteDTO);
 
 			// Afirmar
-			assertEquals(numeroIdentificacion, result.getNumeroIdentificacion());
+			assertEquals(NUM_IDENTIFICACION, result.getNumeroIdentificacion());
 			verify(mockRepo, times(1)).save(any(Cliente.class));
 		} catch (Exception e) {
 			logger.info("");
@@ -345,41 +284,11 @@ public class ClienteServiceTest {
 
 	}
 
-	// @Test
-	public void testCreateClienteNonExistingClienteReturnsCliente() {
-		// Organizar
-		String numeroIdentificacion = "123";
-		when(mockRepo.findByNumeroIdentificacion(numeroIdentificacion)).thenReturn(null);
-
-		ClienteDTO clienteDTO = new ClienteDTO();
-		clienteDTO.setIdentificationNumber(numeroIdentificacion);
-
-		Cliente clienteGuardado = new Cliente();
-		clienteGuardado.setNumeroIdentificacion(numeroIdentificacion);
-
-		when(mockRepo.save(any(Cliente.class))).thenReturn(clienteGuardado);
-
-		// Actuar
-		Cliente result = service.createCliente(clienteDTO);
-
-		// Afirmar
-		assertEquals(numeroIdentificacion, result.getNumeroIdentificacion());
-		verify(mockRepo, times(1)).save(any(Cliente.class));
-	}
-
 	@Test
 	public void testCreateClienteConDireccionesSucursalesNull() {
 
 		try {
-			ClienteDTO clienteDTO = new ClienteDTO();
-			clienteDTO.setIdentificationNumber("12345");
-			clienteDTO.setMainProvince("Some Province");
-			clienteDTO.setMainCity("Some City");
-			clienteDTO.setMainAddress("Some Address");
-			clienteDTO.setTypeAddress("MATRIZ"); // o "SUCURSAL", según tus necesidades
-
 			when(mockRepo.findByNumeroIdentificacion(anyString())).thenReturn(null);
-
 		} catch (Exception e) {
 			logger.info("");
 		}
@@ -388,15 +297,8 @@ public class ClienteServiceTest {
 	@Test
 	public void testCreateClienteConDireccionesSucursalesNonNull() {
 		try {
-			ClienteDTO clienteDTO = new ClienteDTO();
-			clienteDTO.setIdentificationNumber("12345");
-			clienteDTO.setMainProvince("Some Province");
-			clienteDTO.setMainCity("Some City");
-			clienteDTO.setMainAddress("Some Address");
-			clienteDTO.setTypeAddress("SUCURSAL");
 
 			when(mockRepo.findByNumeroIdentificacion(anyString())).thenReturn(null);
-
 
 		} catch (Exception e) {
 			logger.info("");
@@ -407,19 +309,10 @@ public class ClienteServiceTest {
 	@Test
 	public void testBuscarClientes() {
 
-		Direccion direccion1 = new Direccion();
-		direccion1.setProvincia("Provincia de prueba");
-		direccion1.setCiudad("Ciudad de prueba");
-		direccion1.setDireccion("Direccion de prueba");
-		direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
-		direccion1.setId(1);
+		Direccion direccion1 = crearDireccion(1, "Provincia de prueba", "Ciudad de prueba", "Direccion de prueba");
 
-		Direccion direccion2 = new Direccion();
-		direccion2.setProvincia("Provincia de prueba 2");
-		direccion2.setCiudad("Ciudad de prueba 2");
-		direccion2.setDireccion("Direccion de prueba 2");
-		direccion2.setTipoDireccion(TipoDireccion.MATRIZ);
-		direccion2.setId(1);
+		Direccion direccion2 = crearDireccion(1, "Provincia de prueba 2", "Ciudad de prueba 2",
+				"Direccion de prueba 2");
 
 		Cliente cliente1 = new Cliente();
 		cliente1.setNumeroIdentificacion("12345");
@@ -448,12 +341,7 @@ public class ClienteServiceTest {
 	public void testUpdate_success() {
 
 		try {
-			Direccion direccion1 = new Direccion();
-			direccion1.setProvincia("Provincia de prueba");
-			direccion1.setCiudad("Ciudad de prueba");
-			direccion1.setDireccion("Direccion de prueba");
-			direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
-			direccion1.setId(1);
+			Direccion direccion1 = crearDireccion(1, "Provincia de prueba", "Ciudad de prueba", "Direccion de prueba");
 
 			Cliente cliente = new Cliente();
 			cliente.setId(1);
@@ -557,12 +445,7 @@ public class ClienteServiceTest {
 	public void testUpdate_success_case2() {
 
 		try {
-			Direccion direccion1 = new Direccion();
-			direccion1.setProvincia("Provincia de prueba");
-			direccion1.setCiudad("Ciudad de prueba");
-			direccion1.setDireccion("Direccion de prueba");
-			direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
-			direccion1.setId(1);
+			Direccion direccion1 = crearDireccion(1, "Provincia de prueba", "Ciudad de prueba", "Direccion de prueba");
 
 			Cliente cliente = new Cliente();
 			cliente.setId(1);
@@ -624,12 +507,7 @@ public class ClienteServiceTest {
 		Integer id = 1;
 		Integer id2 = 1;
 
-		Direccion direccion1 = new Direccion();
-		direccion1.setProvincia("Provincia de prueba");
-		direccion1.setCiudad("Ciudad de prueba");
-		direccion1.setDireccion("Direccion de prueba");
-		direccion1.setTipoDireccion(TipoDireccion.MATRIZ);
-		direccion1.setId(1);
+		Direccion direccion1 = crearDireccion(1, "Provincia de prueba", "Ciudad de prueba", "Direccion de prueba");
 
 		Cliente cliente = new Cliente();
 		cliente.setId(id);

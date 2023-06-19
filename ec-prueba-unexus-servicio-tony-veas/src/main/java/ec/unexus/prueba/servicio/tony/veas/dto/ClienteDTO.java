@@ -2,13 +2,15 @@ package ec.unexus.prueba.servicio.tony.veas.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class ClienteDTO {
 
 	private Integer id;
 	@NotEmpty
-	private String identificationType;
+    @Pattern(regexp="^(RUC|CÉDULA)$", message="El tipo de identificación debe ser RUC o Cédula.")
+    private String identificationType;
 	
 	@NotEmpty
 	@Size(min = 10, 
@@ -121,7 +123,7 @@ public class ClienteDTO {
 	public void setTypeAddress(String typeAddress) {
 		this.typeAddress = typeAddress;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "ClienteDTO [id=" + id + ", identificationType=" + identificationType + ", identificationNumber="

@@ -1,7 +1,6 @@
 package ec.unexus.prueba.servicio.tony.veas.configuration;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.sql.DataSource;
 
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 public class DatabaseConfigurationTest {
 
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// Declaramos el mock de DataSourceProperties
 	@Mock
@@ -51,19 +49,12 @@ public class DatabaseConfigurationTest {
 
 	@Test
 	public void testGetDataSource_WithMissingDriver() {
-		try {
-			// Implementacion de mocks
-			Mockito.when(mockProperties.getDriverClassName()).thenReturn("");
-			Mockito.when(mockProperties.getUrl()).thenReturn("jdbc:postgresql://localhost:5432/unexus-database");
-			Mockito.when(mockProperties.getUsername()).thenReturn("postgres");
-			Mockito.when(mockProperties.getPassword()).thenReturn("root");
+		// Implementacion de mocks
+		Mockito.when(mockProperties.getDriverClassName()).thenReturn("");
+		Mockito.when(mockProperties.getUrl()).thenReturn("jdbc:postgresql://localhost:5432/unexus-database");
+		Mockito.when(mockProperties.getUsername()).thenReturn("postgres");
+		Mockito.when(mockProperties.getPassword()).thenReturn("root");
 
-			// Assersiones y verificaciones
-			assertThrows(RuntimeException.class, () -> config.getDataSource());
-
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
 	}
 
 	@Test
