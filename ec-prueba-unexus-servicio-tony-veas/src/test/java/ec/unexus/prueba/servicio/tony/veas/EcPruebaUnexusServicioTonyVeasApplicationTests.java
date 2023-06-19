@@ -1,4 +1,4 @@
-package ec.unexus.prueba.servicio.tony.veas.application;
+package ec.unexus.prueba.servicio.tony.veas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
