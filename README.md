@@ -272,11 +272,10 @@ typeAddress=SUCURSAL
 
 ## 4) Editar clientes
 
-- a) Probar editando con un id de cliente que no existe.  
-   END_POINT (Para id inexistente)
-  ````
-  http://localhost:8080/clientes/30```
-  ````
+- a) Probar editando con un id de cliente que no existe.
+  ```
+   END_POINT (Para id inexistente): http://localhost:8080/clientes/30
+  ```
 
 ```json
 {
