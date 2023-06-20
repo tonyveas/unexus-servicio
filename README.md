@@ -17,7 +17,7 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 Antes de clonar y ejecutar nuestra aplicación de spring boot necesitamos crear una base en PostgreSQL
 
 1. Descargar PostgreSQL si no lo tiene, de acuerdo a su sistema operativo. (https://postgresql.org/download)
-2. Configurar las credenciales de acceso para su base de datos. Para propósitos de ejercicio se uso (Pero puede configurarlo a su gusto):
+2. Configurar las credenciales de acceso para su base de datos. Para propósitos de ejercicio y ejemplo se usó las siguientes (Pero puede configurarlo a su gusto):
 
 ```Credenciales
 # Credenciales para acceder a la base de datos
@@ -37,12 +37,12 @@ unexus-database
 1. Copiar el url del repositorio: https://github.com/tonyveas/unexus-servicio.git
 2. Abrir el bash de git o cualquier otra herramienta para clonar el repositorio de github.
 3. Usamos: git clone https://github.com/tonyveas/unexus-servicio.git
-4. Una vez clonado abrimos Eclipse IDE.
+4. Una vez clonado abrimos el respectivo Eclipse IDE.
 5. Creamos un workspace.
 6. Luego ir a `File > Import`.
 7. En la ventana de importación, expandir la carpeta `Maven` y selecciona `Existing Maven Projects`.
 8. Haz clic en `Next`.
-9. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio/ec-prueba-unexus-servicio-tony-veas`.
+9. En la siguiente ventana, hacer clic en el botón `Browse` y navegar hasta el directorio del repositorio clonado anteriormente `unexus-servicio/ec-prueba-unexus-servicio-tony-veas`.
 10. Haz clic en `Finish`. El proyecto se importará en Eclipse.
 11. Y esperamos a que finalice la importación.
 12. Actualizar el `application.properties` con las credenciales y las configuraciones de la base de datos.
