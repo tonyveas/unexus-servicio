@@ -110,8 +110,8 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
 - g) Sin enviarle valor al parámetro de búsqueda.
   Con lo cual debería devolver todos los registros.
   ```
-  END_POINT (Para nombres que coinciden - Forma 1): http://localhost:8080/clientes?search
-  END_POINT (Para nombres que coinciden - Forma 2): http://localhost:8080/clientes?search=
+  END_POINT (Forma 1): http://localhost:8080/clientes?search
+  END_POINT (Forma 2): http://localhost:8080/clientes?search=
   ```
 
 ## 2) Crear clientes
@@ -144,6 +144,8 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
   - email se un email válido.
   - cellPhone debe tener 10 dígitos.
 
+- b) Probando un insert con cédula repetida:
+
   ```json
   {
     "identificationType": "CÉDULA",
@@ -152,13 +154,13 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
     "email": "carla.jaime@ux.ec",
     "cellphone": "0854232102",
     "province": "Provincia Napo",
-
     "city": "Tena",
     "address": "Calle de las Amazonas"
   }
   ```
 
-- b) Probando un insert correcto:
+- c) Probando un insert correcto (Indicar que por defecto se guarda la dirección como matriz):
+
   ```json
   {
     "identificationType": "CÉDULA",
@@ -172,9 +174,111 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
   }
   ```
 
-## 3) Editar clientes
+- d) existe la opción de indicar el parámetro typeAddress, dónde al guardar al cliente se le puede indicar si la dirección que se está pasando en el request es MATRIZ o SUCURSAL:
 
-- a) Probando validaciones: (Similar al insert).
+  Caso 1: typeAddress=MATRIZ
+
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "3030303030",
+    "names": "Andrea Jimenes",
+    "email": "andrea.jimenes@ux.ec",
+    "cellphone": "0844244102",
+    "province": "Provincia Zamora Chinchipe",
+    "city": "Ciudad de Zamora Chinchipe",
+    "address": "Interseccion principal Zamora Chinchipe",
+    "typeAddress": "MATRIZ"
+  }
+  ```
+
+  Caso 2: typeAddress=SUCURSAL
+
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "3030303030",
+    "names": "Andrea Jimenes",
+    "email": "andrea.jimenes@ux.ec",
+    "cellphone": "0844244102",
+    "province": "Provincia Zamora Chinchipe",
+    "city": "Ciudad de Zamora Chinchipe",
+    "address": "Interseccion principal Zamora Chinchipe",
+    "typeAddress": "SUCURSAL"
+  }
+  ```
+
+## 3) Crear direcciones para un cliente.
+
+a) Intentando crear una dirección para un cliente que no existe.
+
+```
+  END_POINT : http://localhost:8080/clientes/direcciones/52
+```
+
+```json
+{
+  "province": "Azuay sucursal",
+  "city": "Cuenca sucursal",
+  "address": "Gran Colombia 1234 sucursal"
+}
+```
+
+END_POINT (Para crear direcciones): http://localhost:8080/clientes/direcciones/52
+
+b) Probar validaciones
+
+```json
+{
+  "province": "Azuay sucursal",
+  "city": "Cuenca sucursal",
+  "address": "Gran Colombia 1234 sucursal"
+}
+```
+
+c) Probar con los datos correctos. Es importante recalcar que la dirección por defecto se guarda como SUCURSAL.
+
+```json
+{
+  "province": "Azuay surcursal",
+  "city": "Cuenca surcursal",
+  "address": "Gran Colombia 1234 surcursal"
+}
+```
+
+d) Existe un parámetro, llamado typeAddress, el cual puede recibir el valor de SUCURSAL o MATRIZ. Si indicamos como SUCURSAL, la dirección se guarda como sucursal. Si se indica como MATRIZ, se guardará como MATRIZ, siempre y cuando el cliente por alguna razón al inicio no registró su dirección matriz, si ya tiene da el mensaje de error y si no tiene se guarda.
+
+```json
+{
+  "province": "Azuay matriz",
+  "city": "Cuenca matriz",
+  "address": "Gran Colombia 1234 matriz",
+  "typeAddress": "MATRIZ"
+}
+```
+
+## 4) Editar clientes
+
+- a) Probar editando con un id de cliente que no existe.  
+   END_POINT (Para id inexistente)
+  ````
+  http://localhost:8080/clientes/30```
+  ````
+
+```json
+{
+  "identificationType": "CÉDULA",
+  "identificationNumber": "0987633333",
+  "names": "Lira Pinoargote",
+  "email": "Lira.pinoargote@email.com",
+  "cellphone": "0996793333",
+  "province": "Provincia de Prueba Matriz Lira Pinoargote edit",
+  "city": "Ciudad de Prueba Matriz Lira Pinoargote",
+  "address": "Calle de Prueba Matriz Lira Pinoargote"
+}
+```
+
+- b) Probando validaciones: (Similar al insert).
 
   ```
   END_POINT (Para editar cliente PUT): http://localhost:8080/clientes/{idCliente}
@@ -184,14 +288,14 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
 
   ```json
   {
-    "identificationType": "",
-    "identificationNumber": "",
-    "names": "",
-    "email": "",
-    "cellphone": "",
-    "province": "",
-    "city": "",
-    "address": ""
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987633333",
+    "names": "Lira Pinoargote",
+    "email": "Lira.pinoargote@email.com",
+    "cellphone": "0996793333",
+    "province": "Provincia de Prueba Matriz Lira Pinoargote edit",
+    "city": "Ciudad de Prueba Matriz Lira Pinoargote",
+    "address": "Calle de Prueba Matriz Lira Pinoargote"
   }
   ```
 
@@ -205,31 +309,31 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
   ```json
   {
     "identificationType": "CÉDULA",
-    "identificationNumber": "0987611111",
-    "names": "Carla Jaime",
-    "email": "carla.jaime@ux.ec",
-    "cellphone": "0854232102",
-    "province": "Provincia Napo",
-    "city": "Tena",
-    "address": "Calle de las Amazonas"
+    "identificationNumber": "0987633333",
+    "names": "Lira Pinoargote",
+    "email": "Lira.pinoargote@email.com",
+    "cellphone": "0996793333",
+    "province": "Provincia de Prueba Matriz Lira Pinoargote edit",
+    "city": "Ciudad de Prueba Matriz Lira Pinoargote",
+    "address": "Calle de Prueba Matriz Lira Pinoargote"
   }
   ```
 
 - b) Probando un update correcto:
   ```json
   {
-    "identificationType": "RUC",
-    "identificationNumber": "0987654321",
-    "names": "Carlos Perez",
-    "email": "carlos.perez@ux.ec",
-    "cellphone": "0985232102",
-    "province": "Provincia del Guayas",
-    "city": "Guayaquil",
-    "address": "Av de las Americas"
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987633333",
+    "names": "Lira Pinoargote",
+    "email": "Lira.pinoargote@email.com",
+    "cellphone": "0996793333",
+    "province": "Provincia de Prueba Matriz Lira Pinoargote edit",
+    "city": "Ciudad de Prueba Matriz Lira Pinoargote",
+    "address": "Calle de Prueba Matriz Lira Pinoargote"
   }
   ```
 
-## 4) Eliminar clientes
+## 5) Eliminar clientes
 
 - a) Eliminar un cliente que no existe. Debería dar error.
   ```
@@ -238,17 +342,6 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
 - b) Eliminar un cliente que sí existe. Debería eliminarlo correctamente.
   ```
   END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/{idCliente}
-  ```
-
-## 5) Eliminar cliente
-
-- a) Eliminar cliente no existente
-  ```
-  END_POINT (Para intentar eliminar cliente que no existe): http://localhost:8080/clientes/1111
-  ```
-- b) Eliminar cliente que existente, indicando que también se eliminaran las direcciones asociadas.
-  ```
-  END_POINT (Para eliminar cliente que existe): http://localhost:8080/clientes/3
   ```
 
 ## 6) Listar direcciones de cliente
