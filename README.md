@@ -62,12 +62,6 @@ app.datasource.driver-class-name=org.postgresql.Driver
 15. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
 16. Si revisamos la base de datos, veremos las tablas creadas con los datos de pruebas.
 
-# Uso
-
-Para iniciar el servicio, ejecuta `mvn spring-boot:run` en la raíz del proyecto.
-
-El servicio estará disponible en `http://localhost:8080`.
-
 # APIs y funcionalidades
 
 Este servicio proporciona un conjunto de API REST para gestionar los datos de los clientes y sus direcciones. Las funcionalidades incluyen:
@@ -80,6 +74,197 @@ Este servicio proporciona un conjunto de API REST para gestionar los datos de lo
 - Listar las direcciones adicionales de un cliente.
 
 Consulte la documentación de la API para obtener más detalles.
+
+# Ejemplos de uso de nuestra API REST
+
+Los resultados dependen de los valores que se estén almacenando en la base de datos.
+
+## 1. Buscar cliente
+
+- a) Buscar por numero_identificacion que no existe. Con lo cual nos devolvería vacío o arreglo de JSON vacío.
+  ```
+  END_POINT (Para numero_identificacion inexistente): http://localhost:8080/clientes?search=4545454545
+  ```
+- b) Buscar por nombre que no existe. Con lo cual nos devolvería vacío o arreglo de JSON vacío.
+  ```
+  END_POINT (Para nombres inexistentes): http://localhost:8080/clientes?search=Fer
+  ```
+- c) Buscar por numero_identificacion que sí existe, usando coincidencia exacta. Con lo cual debería devolver un único valor.
+  ```
+  END_POINT (Para numero_identificacion exacto existente): http://localhost:8080/clientes?search=0987633333
+  ```
+- d) Buscar por numero_identificacion que sí existe, usando coincidencias parciales (Ya que se usa un like).
+  Con lo cual debería devolver todos los valor que coincidan.
+  ```
+  END_POINT (Para numero_identificacion que coinciden): http://localhost:8080/clientes?search=09876
+  ```
+- e) Buscar por nombre que sí existe, usando coincidencia exacta. Con lo cual debería devolver un único valor.
+  ```
+  END_POINT (Para nombres exactos existente): http://localhost:8080/clientes?search=Lira Pinoargote
+  ```
+- f) Buscar por nombre que sí existe, usando coincidencias parciales (Ya que se usa un like).
+  Con lo cual debería devolver todos los valor que coincidan.
+  ```
+  END_POINT (Para nombres que coinciden): http://localhost:8080/clientes?search=Lira
+  ```
+- g) Sin enviarle valor al parámetro de búsqueda.
+  Con lo cual debería devolver todos los registros.
+  ```
+  END_POINT (Para nombres que coinciden - Forma 1): http://localhost:8080/clientes?search
+  END_POINT (Para nombres que coinciden - Forma 2): http://localhost:8080/clientes?search=
+  ```
+
+## 2) Crear clientes
+
+- a) Probando validaciones:
+
+  ```
+  END_POINT (Para crear cliente POST): http://localhost:8080/clientes
+  ```
+
+  Primero probar poniendo cada campo vacío:
+
+  ```json
+  {
+    "identificationType": "",
+    "identificationNumber": "",
+    "names": "",
+    "email": "",
+    "cellphone": "",
+    "province": "",
+    "city": "",
+    "address": ""
+  }
+  ```
+
+  Luego se debe de probar los campos especiales:
+
+  - identificationType debe ser RUC o cédula.
+  - identificationNumber debe tener 10 dígitos.
+  - email se un email válido.
+  - cellPhone debe tener 10 dígitos.
+
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987611111",
+    "names": "Carla Jaime",
+    "email": "carla.jaime@ux.ec",
+    "cellphone": "0854232102",
+    "province": "Provincia Napo",
+
+    "city": "Tena",
+    "address": "Calle de las Amazonas"
+  }
+  ```
+
+- b) Probando un insert correcto:
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987654321",
+    "names": "Carlos Perez",
+    "email": "carlos.perez@ux.ec",
+    "cellphone": "0985232102",
+    "province": "Provincia del Guayas",
+    "city": "Guayaquil",
+    "address": "Av de las Americas"
+  }
+  ```
+
+## 3) Editar clientes
+
+- a) Probando validaciones: (Similar al insert).
+
+  ```
+  END_POINT (Para editar cliente PUT): http://localhost:8080/clientes/{idCliente}
+  ```
+
+  Primero probar poniendo cada campo vacío:
+
+  ```json
+  {
+    "identificationType": "",
+    "identificationNumber": "",
+    "names": "",
+    "email": "",
+    "cellphone": "",
+    "province": "",
+    "city": "",
+    "address": ""
+  }
+  ```
+
+  Luego se debe de probar los campos especiales:
+
+  - identificationType debe ser RUC o cédula.
+  - identificationNumber debe tener 10 dígitos.
+  - email se un email válido.
+  - cellPhone debe tener 10 dígitos.
+
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987611111",
+    "names": "Carla Jaime",
+    "email": "carla.jaime@ux.ec",
+    "cellphone": "0854232102",
+    "province": "Provincia Napo",
+    "city": "Tena",
+    "address": "Calle de las Amazonas"
+  }
+  ```
+
+- b) Probando un update correcto:
+  ```json
+  {
+    "identificationType": "RUC",
+    "identificationNumber": "0987654321",
+    "names": "Carlos Perez",
+    "email": "carlos.perez@ux.ec",
+    "cellphone": "0985232102",
+    "province": "Provincia del Guayas",
+    "city": "Guayaquil",
+    "address": "Av de las Americas"
+  }
+  ```
+
+## 4) Eliminar clientes
+
+- a) Eliminar un cliente que no existe. Debería dar error.
+  ```
+  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/{idCliente}
+  ```
+- b) Eliminar un cliente que sí existe. Debería eliminarlo correctamente.
+  ```
+  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/{idCliente}
+  ```
+
+## 5) Eliminar cliente
+
+- a) Eliminar cliente no existente
+  ```
+  END_POINT (Para intentar eliminar cliente que no existe): http://localhost:8080/clientes/1111
+  ```
+- b) Eliminar cliente que existente, indicando que también se eliminaran las direcciones asociadas.
+  ```
+  END_POINT (Para eliminar cliente que existe): http://localhost:8080/clientes/3
+  ```
+
+## 6) Listar direcciones de cliente
+
+- a) Buscar por id de cliente que no existe. Con lo cual nos devolvería vacío o arreglo de json vacío.
+  ```
+  END_POINT (Para mostrar direciones existente): http://localhost:8080/clientes/direcciones/100000000
+  ```
+- b) Buscar por id de cliente que existe. Con lo cual nos devolvería los datos.
+  ```
+  END_POINT (Para mostrar direciones existente): http://localhost:8080/clientes/direcciones/1
+  ```
+
+# Observaciones
+
+Recuerda siempre revisar los registros en la base de datos y compararlos con lo que obtienes en las respuestas del API.
 
 # Contribuir
 
