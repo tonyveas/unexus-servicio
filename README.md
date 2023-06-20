@@ -224,7 +224,7 @@ a) Intentando crear una dirección para un cliente que no existe.
 }
 ```
 
-END_POINT (Para crear direcciones): http://localhost:8080/clientes/direcciones/52
+END_POINT (Para crear direcciones): http://localhost:8080/clientes/direcciones/3
 
 b) Probar validaciones
 
@@ -248,12 +248,25 @@ c) Probar con los datos correctos. Es importante recalcar que la dirección por 
 
 d) Existe un parámetro, llamado typeAddress, el cual puede recibir el valor de SUCURSAL o MATRIZ. Si indicamos como SUCURSAL, la dirección se guarda como sucursal. Si se indica como MATRIZ, se guardará como MATRIZ, siempre y cuando el cliente por alguna razón al inicio no registró su dirección matriz, si ya tiene da el mensaje de error y si no tiene se guarda.
 
+typeAddress=MATRIZ
+
 ```json
 {
   "province": "Azuay matriz",
   "city": "Cuenca matriz",
   "address": "Gran Colombia 1234 matriz",
   "typeAddress": "MATRIZ"
+}
+```
+
+typeAddress=SUCURSAL
+
+```json
+{
+  "province": "Azuay province para sucursal",
+  "city": "Cuenca ciudad para sucursal",
+  "address": "Gran Colombia 1234 para la sucursal",
+  "typeAddress": "SUCURSAL"
 }
 ```
 
