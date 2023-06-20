@@ -43,8 +43,8 @@ unexus-database
 7. Haz clic en `Next`.
 8. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio/ec-prueba-unexus-servicio-tony-veas`.
 9. Haz clic en `Finish`. El proyecto se importará en Eclipse.
-   10.Y esperamos a que finalice la importación.
-10. Actualizar el `application.properties` con las credenciales y las configuraciones de la base de datos.
+10. Y esperamos a que finalice la importación.
+11. Actualizar el `application.properties` con las credenciales y las configuraciones de la base de datos.
 
 Aquí hay un ejemplo de configuración de la base de datos:
 
@@ -56,9 +56,10 @@ app.datasource.password=root
 app.datasource.driver-class-name=org.postgresql.Driver
 ```
 
-8. Damos clic derecho en la carpeta de nuestro proyecto ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven clean y esperamos que termine.
-9. Damos nuevamente clic derecho en la carpeta ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven install y esperamos que termine.
-10. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
+12. Damos clic derecho en la carpeta de nuestro proyecto ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven clean y esperamos que termine.
+13. Damos nuevamente clic derecho en la carpeta ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven install y esperamos que termine.
+14. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
+15. Si revisamos la base de datos, veremos las tablas creadas con los datos de pruebas.
 
 # Uso
 
