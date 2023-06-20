@@ -35,20 +35,20 @@ public class DireccionDTOTest {
 		direccionSucursal1.toString();
 		direccionSucursal2.toString();
 		// Aserciones y verificaciones
-		assertEquals("Provincia prueba matriz", direccionMatriz.getMainProvince());
+		assertEquals("Provincia prueba matriz", direccionMatriz.getProvince());
 		assertEquals(1, direccionMatriz.getId());
-		assertEquals("Ciudad prueba matriz", direccionMatriz.getMainCity());
-		assertEquals("Dirección prueba matriz", direccionMatriz.getMainAddress());
+		assertEquals("Ciudad prueba matriz", direccionMatriz.getCity());
+		assertEquals("Dirección prueba matriz", direccionMatriz.getAddress());
 		assertEquals(TipoDireccion.MATRIZ.toString(), direccionMatriz.getTypeAddress());
-		assertEquals("Provincia prueba sucursal 1", direccionSucursal1.getMainProvince());
+		assertEquals("Provincia prueba sucursal 1", direccionSucursal1.getProvince());
 		assertEquals(2, direccionSucursal1.getId());
-		assertEquals("Ciudad prueba sucursal 1", direccionSucursal1.getMainCity());
-		assertEquals("Dirección prueba sucursal 1", direccionSucursal1.getMainAddress());
+		assertEquals("Ciudad prueba sucursal 1", direccionSucursal1.getCity());
+		assertEquals("Dirección prueba sucursal 1", direccionSucursal1.getAddress());
 		assertEquals(TipoDireccion.SUCURSAL.toString(), direccionSucursal1.getTypeAddress());
-		assertEquals("Provincia prueba sucursal 2", direccionSucursal2.getMainProvince());
+		assertEquals("Provincia prueba sucursal 2", direccionSucursal2.getProvince());
 		assertEquals(3, direccionSucursal2.getId());
-		assertEquals("Ciudad prueba sucursal 2", direccionSucursal2.getMainCity());
-		assertEquals("Dirección prueba sucursal 2", direccionSucursal2.getMainAddress());
+		assertEquals("Ciudad prueba sucursal 2", direccionSucursal2.getCity());
+		assertEquals("Dirección prueba sucursal 2", direccionSucursal2.getAddress());
 		assertEquals(TipoDireccion.SUCURSAL.toString(), direccionSucursal2.getTypeAddress());
 
 	}

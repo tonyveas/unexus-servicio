@@ -73,9 +73,9 @@ public class DireccionService {
 
 	public Direccion createFromDTO(DireccionDTO direccionDTO) {
 		Direccion direccion = new Direccion();
-		direccion.setProvincia(direccionDTO.getMainProvince());
-		direccion.setCiudad(direccionDTO.getMainCity());
-		direccion.setDireccion(direccionDTO.getMainAddress());
+		direccion.setProvincia(direccionDTO.getProvince());
+		direccion.setCiudad(direccionDTO.getCity());
+		direccion.setDireccion(direccionDTO.getAddress());
 
 		if (direccionDTO.getTypeAddress() == null || direccionDTO.getTypeAddress().isEmpty()) {
 			direccion.setTipoDireccion(TipoDireccion.MATRIZ);

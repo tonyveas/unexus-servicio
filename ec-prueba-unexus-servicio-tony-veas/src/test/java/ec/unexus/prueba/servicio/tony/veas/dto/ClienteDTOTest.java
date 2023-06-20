@@ -33,9 +33,9 @@ public class ClienteDTOTest {
 		assertEquals("Tony Veas", cliente.getNames());
 		assertEquals("tony.veas@example.com", cliente.getEmail());
 		assertEquals("0999999999", cliente.getCellphone());
-		assertEquals("Pichincha", cliente.getMainProvince());
-		assertEquals("Quito", cliente.getMainCity());
-		assertEquals("Av. Los Shyris", cliente.getMainAddress());
+		assertEquals("Pichincha", cliente.getProvince());
+		assertEquals("Quito", cliente.getCity());
+		assertEquals("Av. Los Shyris", cliente.getAddress());
 		assertEquals("MATRIZ", cliente.getTypeAddress());
 	}
 }

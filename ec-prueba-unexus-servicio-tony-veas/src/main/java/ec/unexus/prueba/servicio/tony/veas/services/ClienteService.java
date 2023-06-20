@@ -49,9 +49,9 @@ public class ClienteService {
 		clienteDTO.setEmail(cliente.getCorreo());
 		clienteDTO.setCellphone(cliente.getNumeroCelular());
 		Direccion direccionMatriz = cliente.getDireccionMatriz();
-		clienteDTO.setMainProvince(direccionMatriz.getProvincia());
-		clienteDTO.setMainCity(direccionMatriz.getCiudad());
-		clienteDTO.setMainAddress(direccionMatriz.getDireccion());
+		clienteDTO.setProvince(direccionMatriz.getProvincia());
+		clienteDTO.setCity(direccionMatriz.getCiudad());
+		clienteDTO.setAddress(direccionMatriz.getDireccion());
 		clienteDTO.setTypeAddress(direccionMatriz.getTipoDireccion().toString());
 		return clienteDTO;
 	}
@@ -74,14 +74,14 @@ public class ClienteService {
 		nuevoCliente.setCorreo(clienteDTO.getEmail());
 		nuevoCliente.setNumeroCelular(clienteDTO.getCellphone());
 
-		if (clienteDTO.getMainProvince() != null & clienteDTO.getMainCity() != null
-				& clienteDTO.getMainAddress() != null & !clienteDTO.getMainProvince().isEmpty()
-				& !clienteDTO.getMainCity().isEmpty() & !clienteDTO.getMainAddress().isEmpty()) {
+		if (clienteDTO.getProvince() != null & clienteDTO.getCity() != null
+				& clienteDTO.getAddress() != null & !clienteDTO.getProvince().isEmpty()
+				& !clienteDTO.getCity().isEmpty() & !clienteDTO.getAddress().isEmpty()) {
 
 			Direccion direccion = new Direccion();
-			direccion.setProvincia(clienteDTO.getMainProvince());
-			direccion.setCiudad(clienteDTO.getMainCity());
-			direccion.setDireccion(clienteDTO.getMainAddress());
+			direccion.setProvincia(clienteDTO.getProvince());
+			direccion.setCiudad(clienteDTO.getCity());
+			direccion.setDireccion(clienteDTO.getAddress());
 
 			if (clienteDTO.getTypeAddress() == null) {
 				direccion.setTipoDireccion(TipoDireccion.MATRIZ);
@@ -139,6 +139,12 @@ public class ClienteService {
 		clienteExistente.setCorreo(clienteDTO.getEmail());
 		clienteExistente.setNumeroCelular(clienteDTO.getCellphone());
 
+		Direccion direccion = clienteExistente.getDireccionMatriz();
+		direccion.setProvincia(clienteDTO.getProvince());
+		direccion.setCiudad(clienteDTO.getCity());
+		direccion.setDireccion(clienteDTO.getAddress());
+		direccion.setTipoDireccion(TipoDireccion.MATRIZ);
+		direccion.setCliente(clienteExistente);
 		Cliente clienteActualizado = clienteRepository.save(clienteExistente);
 
 		return convertToDTO(clienteActualizado);

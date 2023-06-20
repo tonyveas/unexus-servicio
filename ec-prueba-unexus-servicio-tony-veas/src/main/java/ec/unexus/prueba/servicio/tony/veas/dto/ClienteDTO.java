@@ -16,9 +16,9 @@ public class ClienteDTO {
 
 	private Integer id;
 	
-	/* Tipo de identificación (RUC o Cédula) */
+	/* Tipo de identificación (RUC o CÉDULA) */
 	@NotEmpty
-    @Pattern(regexp="^(RUC|CÉDULA)$", message="El tipo de identificación debe ser RUC o Cédula.")
+    @Pattern(regexp="^(RUC|CÉDULA)$", message="El tipo de identificación debe ser RUC o CÉDULA.")
     private String identificationType;
 	
 	/* Número de identificación */
@@ -48,15 +48,15 @@ public class ClienteDTO {
 	
 	/* Provincia */
 	@NotEmpty(message = "El campo de provincia o mainProvince no debe estar vacío.")
-	private String mainProvince;
+	private String province;
 	
 	/* Ciudad */
 	@NotEmpty(message = "El campo de ciudad o mainCity no debe estar vacío.")
-	private String mainCity;
+	private String city;
 	
 	/* Dirección */
 	@NotEmpty(message = "El campo de direccion o mainAddress no debe estar vacío.")
-	private String mainAddress;
+	private String address;
 	
 	/**
 	 * El campo 'typeAddress' (tipo dirección: MATRIZ o Sucursal) es opcional y se 
@@ -116,28 +116,28 @@ public class ClienteDTO {
 		this.cellphone = cellphone;
 	}
 
-	public String getMainProvince() {
-		return mainProvince;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setMainProvince(String mainProvince) {
-		this.mainProvince = mainProvince;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public String getMainCity() {
-		return mainCity;
+	public String getCity() {
+		return city;
 	}
 
-	public void setMainCity(String mainCity) {
-		this.mainCity = mainCity;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public String getMainAddress() {
-		return mainAddress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setMainAddress(String mainAddress) {
-		this.mainAddress = mainAddress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getTypeAddress() {
@@ -152,7 +152,7 @@ public class ClienteDTO {
 	public String toString() {
 		return "ClienteDTO [id=" + id + ", identificationType=" + identificationType + ", identificationNumber="
 				+ identificationNumber + ", names=" + names + ", email=" + email + ", cellphone=" + cellphone
-				+ ", mainProvince=" + mainProvince + ", mainCity=" + mainCity + ", mainAddress=" + mainAddress
+				+ ", mainProvince=" + province + ", mainCity=" + city + ", mainAddress=" + address
 				+ ", typeAddress=" + typeAddress + "]";
 	}
 

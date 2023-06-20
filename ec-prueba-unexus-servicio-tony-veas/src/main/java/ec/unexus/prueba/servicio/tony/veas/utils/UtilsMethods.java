@@ -23,9 +23,9 @@ public class UtilsMethods {
 		dto.setIdentificationNumber(identificationNumber);
 		dto.setEmail(email);
 		dto.setCellphone(cellPhone);
-		dto.setMainProvince(mainProvince);
-		dto.setMainCity(mainCity);
-		dto.setMainAddress(mainAddress);
+		dto.setProvince(mainProvince);
+		dto.setCity(mainCity);
+		dto.setAddress(mainAddress);
 		dto.setTypeAddress(typeAddress);
 		return dto;
 	}
@@ -35,9 +35,9 @@ public class UtilsMethods {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setNames(names);
 		dto.setIdentificationNumber(identificationNumber);
-		dto.setMainProvince(mainProvince);
-		dto.setMainCity(mainCity);
-		dto.setMainAddress(mainAddress);
+		dto.setProvince(mainProvince);
+		dto.setCity(mainCity);
+		dto.setAddress(mainAddress);
 		dto.setTypeAddress(typeAddress);
 		return dto;
 	}
@@ -53,9 +53,9 @@ public class UtilsMethods {
 			String typeAddress) {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setNames(names);
-		dto.setMainProvince(mainProvince);
-		dto.setMainCity(mainCity);
-		dto.setMainAddress(mainAddress);
+		dto.setProvince(mainProvince);
+		dto.setCity(mainCity);
+		dto.setAddress(mainAddress);
 		dto.setTypeAddress(typeAddress);
 		return dto;
 	}
@@ -63,9 +63,9 @@ public class UtilsMethods {
 	public ClienteDTO createClienteDTO(String names, String mainProvince, String mainCity, String mainAddress) {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setNames(names);
-		dto.setMainProvince(mainProvince);
-		dto.setMainCity(mainCity);
-		dto.setMainAddress(mainAddress);
+		dto.setProvince(mainProvince);
+		dto.setCity(mainCity);
+		dto.setAddress(mainAddress);
 		return dto;
 	}
 	
@@ -101,9 +101,9 @@ public class UtilsMethods {
 	public DireccionDTO crearDireccionDTO(Integer id, String provincia, String ciudad, String direccion, String tipoDireccion) {
 		DireccionDTO direccion1 = new DireccionDTO();
 		direccion1.setId(id);
-		direccion1.setMainProvince(provincia);
-		direccion1.setMainCity(ciudad);
-		direccion1.setMainAddress(direccion);
+		direccion1.setProvince(provincia);
+		direccion1.setCity(ciudad);
+		direccion1.setAddress(direccion);
 		direccion1.setTypeAddress(tipoDireccion);
 		return direccion1;
 	}

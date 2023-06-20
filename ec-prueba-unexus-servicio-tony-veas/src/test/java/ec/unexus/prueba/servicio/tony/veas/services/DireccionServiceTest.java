@@ -101,9 +101,9 @@ public class DireccionServiceTest {
 	public void testCreateFromDTO_TipoDireccionNotProvided() {
 		// Instanciando objetos de pruebas
 		DireccionDTO direccionDTO = new DireccionDTO();
-		direccionDTO.setMainProvince("Provincia");
-		direccionDTO.setMainCity("Ciudad");
-		direccionDTO.setMainAddress("Direccion");
+		direccionDTO.setProvince("Provincia");
+		direccionDTO.setCity("Ciudad");
+		direccionDTO.setAddress("Direccion");
 		Direccion direccion = direccionService.createFromDTO(direccionDTO);
 		// Aserciones y verificaciones
 		assertEquals(TipoDireccion.MATRIZ, direccion.getTipoDireccion());
@@ -116,9 +116,9 @@ public class DireccionServiceTest {
 	public void testCreateFromDTO_TipoDireccionProvided() {
 		// Instanciando objetos de pruebas
 		DireccionDTO direccionDTO = new DireccionDTO();
-		direccionDTO.setMainProvince("Provincia");
-		direccionDTO.setMainCity("Ciudad");
-		direccionDTO.setMainAddress("Direccion");
+		direccionDTO.setProvince("Provincia");
+		direccionDTO.setCity("Ciudad");
+		direccionDTO.setAddress("Direccion");
 		direccionDTO.setTypeAddress(TipoDireccion.SUCURSAL.name());
 		Direccion direccion = direccionService.createFromDTO(direccionDTO);
 		// Aserciones y verificaciones
