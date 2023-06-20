@@ -213,7 +213,7 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
 a) Intentando crear una dirección para un cliente que no existe.
 
 ```
-  END_POINT : http://localhost:8080/clientes/direcciones/52
+  END_POINT : http://localhost:8080/clientes/direcciones/100000
 ```
 
 ```json
