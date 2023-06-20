@@ -10,7 +10,7 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 - Maven
 - Sistema de gestión de bases de datos PostgreSQL
 
-# Configuración e instalación
+# Configuración y ejecución de nuestra aplicación
 
 ## Creación de base de datos (PostgreSQL)
 
