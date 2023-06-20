@@ -15,6 +15,19 @@ import ec.unexus.prueba.servicio.tony.veas.repositories.ClienteRepository;
 import ec.unexus.prueba.servicio.tony.veas.repositories.DireccionRepository;
 import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
 
+/**
+ * La clase DireccionService es un servicio de Spring Boot que maneja la lógica de negocio para las direcciones de los clientes.
+ * El servicio interactúa con el repositorio de direcciones y clientes para realizar operaciones en la base de datos.
+ *
+ * Las operaciones incluyen agregar una dirección a un cliente específico (agregarDireccion), crear una nueva entidad Direccion 
+ * a partir de un DTO (createFromDTO), obtener todas las direcciones asociadas a un cliente (getDireccionesCliente) 
+ * y guardar una dirección en la base de datos (save).
+ *
+ * Al agregar una dirección, el servicio verifica si el tipo de dirección es "MATRIZ" o "SUCURSAL". 
+ * Si el cliente ya tiene una dirección de matriz, se genera una excepción. Si el tipo de dirección es nulo o "SUCURSAL", 
+ * se establece como "SUCURSAL" por defecto. Después de guardar la nueva dirección en la base de datos, si el tipo de 
+ * dirección es "MATRIZ", se actualiza el cliente con la nueva dirección de matriz.
+ **/
 @Service
 public class DireccionService {
 
@@ -60,9 +73,9 @@ public class DireccionService {
 
 	public Direccion createFromDTO(DireccionDTO direccionDTO) {
 		Direccion direccion = new Direccion();
-		direccion.setProvincia(direccionDTO.getMainProvince());
-		direccion.setCiudad(direccionDTO.getMainCity());
-		direccion.setDireccion(direccionDTO.getMainAddress());
+		direccion.setProvincia(direccionDTO.getProvince());
+		direccion.setCiudad(direccionDTO.getCity());
+		direccion.setDireccion(direccionDTO.getAddress());
 
 		if (direccionDTO.getTypeAddress() == null || direccionDTO.getTypeAddress().isEmpty()) {
 			direccion.setTipoDireccion(TipoDireccion.MATRIZ);

@@ -8,13 +8,14 @@ public class DataSourcePropertiesTest {
 
 	@Test
 	public void testDataSourceProperties() {
+		// Creando porpiedades
 		DataSourceProperties dataSourceProperties = new DataSourceProperties();
-
 		dataSourceProperties.setUrl("jdbc:postgresql://localhost:5432/unexus-database");
 		dataSourceProperties.setUsername("postgres");
 		dataSourceProperties.setPassword("root");
 		dataSourceProperties.setDriverClassName("org.postgresql.Driver");
 		dataSourceProperties.toString();
+		// Assersiones y verificaciones
 		assertEquals("jdbc:postgresql://localhost:5432/unexus-database", dataSourceProperties.getUrl());
 		assertEquals("postgres", dataSourceProperties.getUsername());
 		assertEquals("root", dataSourceProperties.getPassword());

@@ -3,6 +3,11 @@ package ec.unexus.prueba.servicio.tony.veas.configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Clase que representa las propiedades de configuración para la base de datos.
+ * Se utiliza para almacenar las propiedades de URL, nombre de usuario, contraseña y 
+ * clase del controlador de la base de datos.
+ */
 @Configuration
 @ConfigurationProperties(prefix = "app.datasource")
 public class DataSourceProperties {

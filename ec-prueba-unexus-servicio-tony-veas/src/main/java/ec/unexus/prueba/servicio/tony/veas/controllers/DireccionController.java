@@ -11,7 +11,13 @@ import ec.unexus.prueba.servicio.tony.veas.dto.ClienteDireccionesDTO;
 import ec.unexus.prueba.servicio.tony.veas.dto.DireccionDTO;
 import ec.unexus.prueba.servicio.tony.veas.entities.Direccion;
 import ec.unexus.prueba.servicio.tony.veas.services.DireccionService;
+import jakarta.validation.Valid;
 
+/**
+ * Controlador para la gestión de direcciones de clientes.
+ * Proporciona endpoints para agregar una dirección a un 
+ * cliente y obtener las direcciones de un cliente.
+ */
 @RestController
 public class DireccionController {
 
@@ -21,14 +27,16 @@ public class DireccionController {
 		this.direccionService = direccionService;
 	}
 
-	@PostMapping("/direcciones/{idCliente}")
+	/* Endpoint para agregar una dirección a un cliente */
+	@PostMapping("/clientes/direcciones/{idCliente}")
 	public ResponseEntity<Direccion> agregarDireccion(@PathVariable Integer idCliente,
-			@RequestBody DireccionDTO direccionDTO) {
+			@Valid @RequestBody DireccionDTO direccionDTO) {
 		Direccion direccionGuardada = direccionService.agregarDireccion(idCliente, direccionDTO);
 		return ResponseEntity.ok(direccionGuardada);
 	}
 
-	@GetMapping("/direcciones/clientes/{idCliente}")
+	/* Endpoint para obtener las direcciones de un cliente */
+	@GetMapping("/clientes/direcciones/{idCliente}")
 	public ResponseEntity<ClienteDireccionesDTO> getDireccionesCliente(@PathVariable("idCliente") Integer idCliente) {
 		ClienteDireccionesDTO direcciones = direccionService.getDireccionesCliente(idCliente);
 		return ResponseEntity.ok(direcciones);

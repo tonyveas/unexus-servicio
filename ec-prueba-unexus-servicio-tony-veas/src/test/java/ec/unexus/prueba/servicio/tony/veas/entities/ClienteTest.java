@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 
 public class ClienteTest {
 
+	// Creando variable usada en el test
 	private Cliente cliente;
 
+	// Inicialización de variables
 	@BeforeEach
 	void setUp() {
 		cliente = new Cliente();
@@ -18,32 +20,27 @@ public class ClienteTest {
 
 	@Test
 	void testSettersAndGetters() {
+		// Instanciando y creando objetos de pruebas
 		cliente.setId(1);
-		assertEquals(1, cliente.getId());
-
 		cliente.setTipoIdentificacion("CI");
-		assertEquals("CI", cliente.getTipoIdentificacion());
-
 		cliente.setNumeroIdentificacion("1234567890");
-		assertEquals("1234567890", cliente.getNumeroIdentificacion());
-
 		cliente.setNombres("John Doe");
-		assertEquals("John Doe", cliente.getNombres());
-
 		cliente.setCorreo("johndoe@email.com");
-		assertEquals("johndoe@email.com", cliente.getCorreo());
-
 		cliente.setNumeroCelular("1234567890");
-		assertEquals("1234567890", cliente.getNumeroCelular());
-
 		Direccion direccion = new Direccion();
 		cliente.setDireccionMatriz(direccion);
-		assertEquals(direccion, cliente.getDireccionMatriz());
-
 		cliente.setDireccionesSucursales(Collections.singletonList(direccion));
+		cliente.toString();
+		// Aserciones y verificaciones
+		assertEquals("CI", cliente.getTipoIdentificacion());
+		assertEquals(1, cliente.getId());
+		assertEquals("1234567890", cliente.getNumeroIdentificacion());
+		assertEquals("John Doe", cliente.getNombres());
+		assertEquals("johndoe@email.com", cliente.getCorreo());
+		assertEquals("1234567890", cliente.getNumeroCelular());
+		assertEquals(direccion, cliente.getDireccionMatriz());
 		assertEquals(1, cliente.getDireccionesSucursales().size());
 		assertEquals(direccion, cliente.getDireccionesSucursales().get(0));
-		cliente.toString();
 	}
 
 }

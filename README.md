@@ -1,18 +1,18 @@
-# unexus-servicio
+# Sistema Mi Negocio
 
 Bienvenido al proyecto unexus-servicio. Este es un proyecto que apoya al crecimiento de pequeñas y medianas empresas en Ecuador, brindando una solución de facturación electrónica y contabilidad. Como parte de la visión de Alquimiasoft, se busca expandir las soluciones tecnológicas empresariales a 1M de negocios en Latinoamérica.
 
 Este proyecto se realiza como parte de un ejercicio técnico para demostrar habilidades de programación en Java, Spring Boot, y PostgreSQL.
 
-## Prerrequisitos
+# Prerrequisitos
 
 - Java 8 o superior
 - Maven
 - Sistema de gestión de bases de datos PostgreSQL
 
-## Configuración e instalación
+# Configuración e instalación
 
-# Creación de base de datos (PostgreSQL)
+## Creación de base de datos (PostgreSQL)
 
 Antes de clonar y ejecutar nuestra aplicación de spring boot necesitamos crear una base en PostgreSQL
 
@@ -32,15 +32,19 @@ password=root
 unexus-database
 ```
 
-# Clonación y configuración de proyecto de Spring Boot (Usando Eclipse)
+## Clonación y configuración de proyecto de Spring Boot (Usando Eclipse)
 
-1. Abre Eclipse IDE.
-2. Ve a `File > Import`.
-3. En la ventana de importación, expande la carpeta `Maven` y selecciona `Existing Maven Projects`.
-4. Haz clic en `Next`.
-5. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio`.
-6. Haz clic en `Finish`. El proyecto se importará en Eclipse.
-7. Actualiza `application.properties` con las credenciales y las configuraciones de tu base de datos.
+1. Copiar el url del repositorio: https://github.com/tonyveas/unexus-servicio.git
+2. Abrir el bash de git o cualquier otra herramienta para clonar el repositorio de github.
+3. Usamos: git clone https://github.com/tonyveas/unexus-servicio.git
+4. Una vez clonado ir al Eclipse IDE.
+5. Ir a `File > Import`.
+6. En la ventana de importación, expandir la carpeta `Maven` y selecciona `Existing Maven Projects`.
+7. Haz clic en `Next`.
+8. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio/ec-prueba-unexus-servicio-tony-veas`.
+9. Haz clic en `Finish`. El proyecto se importará en Eclipse.
+10. Y esperamos a que finalice la importación.
+11. Actualizar el `application.properties` con las credenciales y las configuraciones de la base de datos.
 
 Aquí hay un ejemplo de configuración de la base de datos:
 
@@ -52,17 +56,18 @@ app.datasource.password=root
 app.datasource.driver-class-name=org.postgresql.Driver
 ```
 
-8. Damos clic derecho en la carpeta de nuestro proyecto ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven clean y esperamos que termine.
-9. Damos nuevamente clic derecho en la carpeta ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven install y esperamos que termine.
-10. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
+12. Damos clic derecho en la carpeta de nuestro proyecto ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven clean y esperamos que termine.
+13. Damos nuevamente clic derecho en la carpeta ec-prueba-unexus-servicio-tony-veas, Run As, escogemos Maven install y esperamos que termine.
+14. Dentro de nuestra carpeta/paquete ec-prueba-unexus-servicio-tony-veas, buscamos la clase EcPruebaUnexusServicioTonyVeasApplication.java, damos clic derecho en la clase, seleccionamos Run As y finalmente Java Application. Esperamos que la aplicación inicie.
+15. Si revisamos la base de datos, veremos las tablas creadas con los datos de pruebas.
 
-## Uso
+# Uso
 
 Para iniciar el servicio, ejecuta `mvn spring-boot:run` en la raíz del proyecto.
 
 El servicio estará disponible en `http://localhost:8080`.
 
-## APIs y funcionalidades
+# APIs y funcionalidades
 
 Este servicio proporciona un conjunto de API REST para gestionar los datos de los clientes y sus direcciones. Las funcionalidades incluyen:
 
@@ -75,7 +80,7 @@ Este servicio proporciona un conjunto de API REST para gestionar los datos de lo
 
 Consulte la documentación de la API para obtener más detalles.
 
-## Contribuir
+# Contribuir
 
 Las contribuciones son bienvenidas. Para contribuir:
 
@@ -86,6 +91,6 @@ Las contribuciones son bienvenidas. Para contribuir:
 5. Haz push a la rama (`git push origin feature/fooBar`).
 6. Crea una nueva Pull Request.
 
-## Licencia
+# Licencia
 
 Este proyecto está licenciado bajo los términos de la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.

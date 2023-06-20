@@ -13,9 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+
+/**
+ * Esta clase es usada para la persistencia de datos. Usada por JPA y Hibernate para interactuar con 
+ * la base de datos. La clase Cliente corresponde con una tabla 'cliente' en la base de datos.
+ * 
+ */
 
 @Entity
 public class Cliente {

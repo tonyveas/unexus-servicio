@@ -2,55 +2,53 @@ package ec.unexus.prueba.servicio.tony.veas.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ec.unexus.prueba.servicio.tony.veas.utils.TipoDireccion;
+import ec.unexus.prueba.servicio.tony.veas.utils.UtilsMethods;
 
 public class DireccionDTOTest {
 
+	// Creando variable usada en el test
+	private UtilsMethods utilsMethods;
+
+	// Inicialización de variables
+	@BeforeEach
+	public void setup() {
+		utilsMethods = new UtilsMethods();
+	}
+
 	@Test
 	public void testDireccionDTO() {
-
-		DireccionDTO direccionMatriz = new DireccionDTO();
-		direccionMatriz.setId(1);
-		direccionMatriz.setMainProvince("Provincia prueba matriz");
-		direccionMatriz.setMainCity("Ciudad prueba matriz");
-		direccionMatriz.setMainAddress("Dirección prueba matriz");
-		direccionMatriz.setTypeAddress(TipoDireccion.MATRIZ.toString());
+		// Instanciando y creando objetos de pruebas
+		DireccionDTO direccionMatriz = utilsMethods.crearDireccionDTO(1, "Provincia prueba matriz", 
+																	  "Ciudad prueba matriz", "Dirección prueba matriz",
+																	  TipoDireccion.MATRIZ.toString());
+		DireccionDTO direccionSucursal1 = utilsMethods.crearDireccionDTO(2, "Provincia prueba sucursal 1",
+										                                 "Ciudad prueba sucursal 1", "Dirección prueba sucursal 1",
+										                                 TipoDireccion.SUCURSAL.toString());
+		DireccionDTO direccionSucursal2 = utilsMethods.crearDireccionDTO(3, "Provincia prueba sucursal 2",
+														                 "Ciudad prueba sucursal 2", "Dirección prueba sucursal 2",
+														                 TipoDireccion.SUCURSAL.toString());
 		direccionMatriz.toString();
-
-		DireccionDTO direccionSucursal1 = new DireccionDTO();
-		direccionSucursal1.setId(2);
-		direccionSucursal1.setMainProvince("Provincia prueba sucursal 1");
-		direccionSucursal1.setMainCity("Ciudad prueba sucursal 1");
-		direccionSucursal1.setMainAddress("Dirección prueba sucursal 1");
-		direccionSucursal1.setTypeAddress(TipoDireccion.SUCURSAL.toString());
 		direccionSucursal1.toString();
-
-		DireccionDTO direccionSucursal2 = new DireccionDTO();
-		direccionSucursal2.setId(3);
-		direccionSucursal2.setMainProvince("Provincia prueba sucursal 2");
-		direccionSucursal2.setMainCity("Ciudad prueba sucursal 2");
-		direccionSucursal2.setMainAddress("Dirección prueba sucursal 2");
-		direccionSucursal2.setTypeAddress(TipoDireccion.SUCURSAL.toString());
 		direccionSucursal2.toString();
-
-		assertEquals("Provincia prueba matriz", direccionMatriz.getMainProvince());
+		// Aserciones y verificaciones
+		assertEquals("Provincia prueba matriz", direccionMatriz.getProvince());
 		assertEquals(1, direccionMatriz.getId());
-		assertEquals("Ciudad prueba matriz", direccionMatriz.getMainCity());
-		assertEquals("Dirección prueba matriz", direccionMatriz.getMainAddress());
+		assertEquals("Ciudad prueba matriz", direccionMatriz.getCity());
+		assertEquals("Dirección prueba matriz", direccionMatriz.getAddress());
 		assertEquals(TipoDireccion.MATRIZ.toString(), direccionMatriz.getTypeAddress());
-
-		assertEquals("Provincia prueba sucursal 1", direccionSucursal1.getMainProvince());
+		assertEquals("Provincia prueba sucursal 1", direccionSucursal1.getProvince());
 		assertEquals(2, direccionSucursal1.getId());
-		assertEquals("Ciudad prueba sucursal 1", direccionSucursal1.getMainCity());
-		assertEquals("Dirección prueba sucursal 1", direccionSucursal1.getMainAddress());
+		assertEquals("Ciudad prueba sucursal 1", direccionSucursal1.getCity());
+		assertEquals("Dirección prueba sucursal 1", direccionSucursal1.getAddress());
 		assertEquals(TipoDireccion.SUCURSAL.toString(), direccionSucursal1.getTypeAddress());
-
-		assertEquals("Provincia prueba sucursal 2", direccionSucursal2.getMainProvince());
+		assertEquals("Provincia prueba sucursal 2", direccionSucursal2.getProvince());
 		assertEquals(3, direccionSucursal2.getId());
-		assertEquals("Ciudad prueba sucursal 2", direccionSucursal2.getMainCity());
-		assertEquals("Dirección prueba sucursal 2", direccionSucursal2.getMainAddress());
+		assertEquals("Ciudad prueba sucursal 2", direccionSucursal2.getCity());
+		assertEquals("Dirección prueba sucursal 2", direccionSucursal2.getAddress());
 		assertEquals(TipoDireccion.SUCURSAL.toString(), direccionSucursal2.getTypeAddress());
 
 	}

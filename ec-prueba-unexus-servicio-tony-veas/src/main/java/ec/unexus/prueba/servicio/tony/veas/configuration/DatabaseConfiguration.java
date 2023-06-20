@@ -14,10 +14,15 @@ public class DatabaseConfiguration {
 		this.dataSourceProperties = dataSourceProperties;
 	}
 
+	/* Método para obtener el DataSource */
 	@Bean
 	public DataSource getDataSource() {
-		return DataSourceBuilder.create().driverClassName(dataSourceProperties.getDriverClassName())
-				.url(dataSourceProperties.getUrl()).username(dataSourceProperties.getUsername())
-				.password(dataSourceProperties.getPassword()).build();
+		return DataSourceBuilder
+			   .create()
+			   .driverClassName(dataSourceProperties.getDriverClassName()) // Establece la clase controlador de la base de datos
+			   .url(dataSourceProperties.getUrl()) // Establece la URL de conexión a la base de datos
+			   .username(dataSourceProperties.getUsername()) // Establece el nombre de usuario para la conexión a la base de datos
+			   .password(dataSourceProperties.getPassword()) // Establecer la contraseña para la conexión a la base de datos
+			   .build(); // Construir y retornar el DataSource
 	}
 }
