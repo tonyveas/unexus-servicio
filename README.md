@@ -378,12 +378,12 @@ typeAddress=SUCURSAL
   ```
 - b) Buscar por id de cliente que existe. Con lo cual nos devolvería los datos.
   ```
-  END_POINT (Para mostrar direciones existente): http://localhost:8080/clientes/direcciones/1
+  END_POINT (Para mostrar direciones existente): http://localhost:8080/clientes/direcciones/54
   ```
 
 # Observaciones
 
-Recuerda siempre revisar los registros en la base de datos y compararlos con lo que obtienes en las respuestas del API.
+Recuerde siempre revisar los registros en la base de datos y compararlos con lo que obtiene en las respuestas del API.
 
 # Contribuir
 
