@@ -344,16 +344,30 @@ typeAddress=SUCURSAL
     "address": "Calle de Prueba Matriz Lira Pinoargote"
   }
   ```
+- c) Probando un update con una cédula existente:
+  ```json
+  {
+    "identificationType": "CÉDULA",
+    "identificationNumber": "4030303030",
+    "names": "Lira Pinoargote edit",
+    "email": "Lira.pinoargoteedit@email.com",
+    "cellphone": "0996790000",
+    "province": "Provincia de Prueba Matriz Lira Pinoargote edit",
+    "city": "Ciudad de Prueba Matriz Lira Pinoargote edit",
+    "address": "Calle de Prueba Matriz Lira Pinoargote edit"
+  }
+  ```
 
 ## 5) Eliminar clientes
 
 - a) Eliminar un cliente que no existe. Debería dar error.
   ```
-  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/{idCliente}
+  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/1000
   ```
 - b) Eliminar un cliente que sí existe. Debería eliminarlo correctamente.
+  Se elimina también las direcciones asociadas.
   ```
-  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/{idCliente}
+  END_POINT (Para eliminar cliente DELETE): http://localhost:8080/clientes/1
   ```
 
 ## 6) Listar direcciones de cliente
