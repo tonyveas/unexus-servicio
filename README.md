@@ -34,13 +34,17 @@ unexus-database
 
 ## Clonación y configuración de proyecto de Spring Boot (Usando Eclipse)
 
-1. Abre Eclipse IDE.
-2. Ve a `File > Import`.
-3. En la ventana de importación, expande la carpeta `Maven` y selecciona `Existing Maven Projects`.
-4. Haz clic en `Next`.
-5. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio`.
-6. Haz clic en `Finish`. El proyecto se importará en Eclipse.
-7. Actualiza `application.properties` con las credenciales y las configuraciones de tu base de datos.
+1. Copiar el url del repositorio: https://github.com/tonyveas/unexus-servicio.git
+2. Abrir el bash de git o cualquier otra herramienta para clonar el repositorio de github.
+3. Usamos: git clone https://github.com/tonyveas/unexus-servicio.git
+4. Una vez clonado ir al Eclipse IDE.
+5. Ir a `File > Import`.
+6. En la ventana de importación, expandir la carpeta `Maven` y selecciona `Existing Maven Projects`.
+7. Haz clic en `Next`.
+8. En la siguiente ventana, haz clic en `Browse` y navega hasta el directorio del repositorio clonado `unexus-servicio/ec-prueba-unexus-servicio-tony-veas`.
+9. Haz clic en `Finish`. El proyecto se importará en Eclipse.
+   10.Y esperamos a que finalice la importación.
+10. Actualizar el `application.properties` con las credenciales y las configuraciones de la base de datos.
 
 Aquí hay un ejemplo de configuración de la base de datos:
 
