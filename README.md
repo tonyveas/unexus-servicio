@@ -126,22 +126,22 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
 
   ```json
   {
-    "identificationType": "",
-    "identificationNumber": "",
-    "names": "",
-    "email": "",
-    "cellphone": "",
-    "province": "",
-    "city": "",
-    "address": ""
+    "identificationType": "CÉDULA",
+    "identificationNumber": "0987611111",
+    "names": "Carla Jaime",
+    "email": "carla.jaime@ux.ec",
+    "cellphone": "0854232102",
+    "province": "Provincia Napo",
+    "city": "Ciudad de Napo ",
+    "address": "Interseccion principal Napo"
   }
   ```
 
   Luego se debe de probar los campos especiales:
 
-  - identificationType debe ser RUC o cédula.
+  - identificationType debe ser RUC o CÉDULA.
   - identificationNumber debe tener 10 dígitos.
-  - email se un email válido.
+  - email tiene que tener la estructura de un correo válido.
   - cellPhone debe tener 10 dígitos.
 
 - b) Probando un insert con cédula repetida:
@@ -174,7 +174,7 @@ Los resultados dependen de los valores que se estén almacenando en la base de d
   }
   ```
 
-- d) existe la opción de indicar el parámetro typeAddress, dónde al guardar al cliente se le puede indicar si la dirección que se está pasando en el request es MATRIZ o SUCURSAL:
+- d) Existe la opción de indicar el parámetro typeAddress, dónde al guardar al cliente se le puede indicar si la dirección que se está pasando en el request es MATRIZ o SUCURSAL:
 
   Caso 1: typeAddress=MATRIZ
 
