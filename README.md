@@ -15,7 +15,7 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 
 Puede realizar la configuración y ejecución de la aplicación siguiendo los pasos que se muestran más abajo, o para una mejor comprensión le invito a ver el siguiente video:
 
-[![Demo Video](http://img.youtube.com/vi/P0DIXstSm8c/0.jpg)](https://youtu.be/P0DIXstSm8c "Configuración y ejecución de la aplicación"){:target="\_blank"}
+[![Demo Video](http://img.youtube.com/vi/P0DIXstSm8c/0.jpg)](https://youtu.be/P0DIXstSm8c "Configuración y ejecución de la aplicación"){:target="_blank"}
 
 ## Creación de base de datos (PostgreSQL)
 
