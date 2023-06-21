@@ -9,8 +9,13 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 - Java 8 o superior
 - Maven
 - Sistema de gestión de bases de datos PostgreSQL
+- Git
 
-# Configuración y ejecución de nuestra aplicación
+# Configuración y ejecución de la aplicación
+
+Puede realizar la configuración y ejecución de la aplicación siguiendo los pasos que se muestran más abajo, o para una mejor comprensión le invito a ver el siguiente video:
+
+[![Demo Video](http://img.youtube.com/vi/P0DIXstSm8c/0.jpg)](https://youtu.be/P0DIXstSm8c "Video Title")
 
 ## Creación de base de datos (PostgreSQL)
 
@@ -76,6 +81,10 @@ Este servicio proporciona un conjunto de API REST para gestionar los datos de lo
 Consulte la documentación de la API para obtener más detalles.
 
 # Ejemplos de uso de nuestra API REST
+
+Para una mejor comprensión le invito a ver el siguiente video:
+
+[![Demo Video](http://img.youtube.com/vi/xrFyQja7P3E/0.jpg)](https://youtu.be/xrFyQja7P3E "Video Title")
 
 Los resultados dependen de los valores que se estén almacenando en la base de datos.
 
@@ -386,6 +395,10 @@ typeAddress=SUCURSAL
 Recuerde siempre revisar los registros en la base de datos y compararlos con lo que obtiene en las respuestas del API.
 
 # Ejecución de test y cobertura
+
+Puede realizar la ejecución de los tests y mirar la cobertura siguiendo los pasos que se muestran más abajo, o para una mejor comprensión le invito a ver el siguiente video:
+
+[![Demo Video](http://img.youtube.com/vi/xu9xQcELBUU/0.jpg)](https://youtu.be/xu9xQcELBUU "Video Title")
 
 1. Una vez que se ha configurado la aplicación, siguiendo los pasos previos. Podemos ejecutar los test. Para lo cual nos vamos a src/test/java
 2. Damos clic derecho en src/test/java, Coverage As, JUnit Test.
