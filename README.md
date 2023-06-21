@@ -385,6 +385,13 @@ typeAddress=SUCURSAL
 
 Recuerde siempre revisar los registros en la base de datos y compararlos con lo que obtiene en las respuestas del API.
 
+# Ejecución de test y cobertura
+
+1. Una vez que se ha configurado la aplicación, siguiendo los pasos previos. Podemos ejecutar los test. Para lo cual nos vamos a src/test/java
+2. Damos clic derecho en src/test/java, Coverage As, JUnit Test.
+3. Esperamos que termine la ejecución de los test.
+4. Finalmente, podemos revisar la pestaña JUnit con la ejecución de los test y la pestaña Coverage que indica la cobertura de los Test.
+
 # Contribuir
 
 Las contribuciones son bienvenidas. Para contribuir:
