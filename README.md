@@ -15,7 +15,7 @@ Este proyecto se realiza como parte de un ejercicio técnico para demostrar habi
 
 Puede realizar la configuración y ejecución de la aplicación siguiendo los pasos que se muestran más abajo, o para una mejor comprensión le invito a ver el siguiente video:
 
-[![Demo Video](http://img.youtube.com/vi/P0DIXstSm8c/0.jpg)](https://youtu.be/P0DIXstSm8c "Configuración y ejecución de la aplicación")
+[![Demo Video](http://img.youtube.com/vi/P0DIXstSm8c/0.jpg)](https://youtu.be/P0DIXstSm8c "Configuración y ejecución de la aplicación") {:target="\_blank"}
 
 ## Creación de base de datos (PostgreSQL)
 
@@ -84,7 +84,7 @@ Consulte la documentación de la API para obtener más detalles.
 
 Para una mejor comprensión le invito a ver el siguiente video:
 
-[![Demo Video](http://img.youtube.com/vi/xrFyQja7P3E/0.jpg)](https://youtu.be/xrFyQja7P3E "Uso de la API REST")
+[![Demo Video](http://img.youtube.com/vi/xrFyQja7P3E/0.jpg)](https://youtu.be/xrFyQja7P3E "Uso de la API REST") {:target="\_blank"}
 
 Los resultados dependen de los valores que se estén almacenando en la base de datos.
 
@@ -398,7 +398,7 @@ Recuerde siempre revisar los registros en la base de datos y compararlos con lo 
 
 Puede realizar la ejecución de los tests y mirar la cobertura siguiendo los pasos que se muestran más abajo, o para una mejor comprensión le invito a ver el siguiente video:
 
-[![Demo Video](http://img.youtube.com/vi/xu9xQcELBUU/0.jpg)](https://youtu.be/xu9xQcELBUU "Ejecución de tests y cobertura")
+[![Demo Video](http://img.youtube.com/vi/xu9xQcELBUU/0.jpg)](https://youtu.be/xu9xQcELBUU "Ejecución de tests y cobertura") {:target="\_blank"}
 
 1. Una vez que se ha configurado la aplicación, siguiendo los pasos previos. Podemos ejecutar los test. Para lo cual nos vamos a src/test/java
 2. Damos clic derecho en src/test/java, Coverage As, JUnit Test.
